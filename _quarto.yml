@@ -13,16 +13,16 @@ website:
         text: Home
       - file: session1.qmd
         text: "Session 1"
-        
+
     #right:
     #  - icon: bar-chart-fill
     #    href: whatever
-
+  
   page-footer: 
     right: |
-      ![Logo image](/img/cunef.png){width=20%}
+      ![Logo image](/img/icmat.png){width=50%}
     left: |
-      ![Logo image](/img/icmat.png){width=20%}
+      ![Logo image](/img/cunef.png){width=50%}
 
 
 format:
