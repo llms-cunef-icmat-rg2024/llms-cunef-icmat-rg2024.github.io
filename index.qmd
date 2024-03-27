@@ -1,7 +1,28 @@
 ---
-title: "Intro to LLMs"
+title: "Intro to LLMs - Reading Group"
+toc: false
 ---
 
-This is a Quarto website.
+### A joint activity of ICMAT-CSIC, CUNEF University and AiHUB-CSIC
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+April 9th - May 14th. 5 sessions
+Locations: ICMAT-CSIC and CUNEF University  (Also online)
+Coordinators: Roi Naveiro (CUNEF University) and David Rios Insua (ICMAT-CSIC)
+
+<div style="text-align: center;">
+  <img src="img/surf.png" width="500" height="500">
+</div>
+
+LLMs have marked much of the recent hype about AI, even leading to last minute modifications of the recent EU AI Act. We pursue two objectives with this activity:
+
+* **Short term.** To provide a forum to facilitate understanding on latest developments in LLMs.
+
+* **Medium term.** To explore the possibility of creating a working group checking for  relevant novel areas in LLMs, most likely in Bayesian issues in relation to LLMs and/or security issues in LLMs.
+
+Should you be interested in at least one of the above objectives, please join us. We shall include you in a  group reading list.
+
+There will be five sessions alternating between ICMAT and CUNEF sites led by a facilitator, but we expect involvement and discussion from the audience. We shall start from introductory and supporting concepts and touch upon the most recent issues. Below is the workplan. Papers suggested to be read will be updated as we go along. Besides key papers we shall provide some computational examples to facilitate grasping concepts. The working language will be English.
+
+A limited number of positions will be available.
+
+Should you have any questions please contact [david.rios@icmat.es](mailto:david.rios@icmat.es)  or [roi.naveiro@cunef.edu](mailto:roi.naveiro@cunef.edu).

@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Intro to LLMs",
+    "title": "Intro to LLMs - Reading Group",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "A joint activity of ICMAT-CSIC, CUNEF University and AiHUB-CSIC\nApril 9th - May 14th. 5 sessions Locations: ICMAT-CSIC and CUNEF University (Also online) Coordinators: Roi Naveiro (CUNEF University) and David Rios Insua (ICMAT-CSIC)\n\n\n\nLLMs have marked much of the recent hype about AI, even leading to last minute modifications of the recent EU AI Act. We pursue two objectives with this activity:\n\nShort term. To provide a forum to facilitate understanding on latest developments in LLMs.\nMedium term. To explore the possibility of creating a working group checking for relevant novel areas in LLMs, most likely in Bayesian issues in relation to LLMs and/or security issues in LLMs.\n\nShould you be interested in at least one of the above objectives, please join us. We shall include you in a group reading list.\nThere will be five sessions alternating between ICMAT and CUNEF sites led by a facilitator, but we expect involvement and discussion from the audience. We shall start from introductory and supporting concepts and touch upon the most recent issues. Below is the workplan. Papers suggested to be read will be updated as we go along. Besides key papers we shall provide some computational examples to facilitate grasping concepts. The working language will be English.\nA limited number of positions will be available.\nShould you have any questions please contact david.rios@icmat.es or roi.naveiro@cunef.edu."
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,47 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "session1.html",
+    "href": "session1.html",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "",
+    "text": "Provide basic background info to follow the forthcoming."
+  },
+  {
+    "objectID": "session1.html#purpose",
+    "href": "session1.html#purpose",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "",
+    "text": "Provide basic background info to follow the forthcoming."
+  },
+  {
+    "objectID": "session1.html#reading-suggestions",
+    "href": "session1.html#reading-suggestions",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "Reading suggestions",
+    "text": "Reading suggestions\n“Current Advances in Neural Networks” provides a broad overview of key concepts and issues in relation to NNs (link)” including Transformers. An overview of sequence modeling techniques and an empirical comparison of different algorithms is in “Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling” by Chung et al. (link). We shall basically be making a summary of this course to facilitate follow up of the remaining sessions."
+  },
+  {
+    "objectID": "session1.html#date",
+    "href": "session1.html#date",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "Date",
+    "text": "Date\nApril 9th at 11.30 @ICMAT-CSIC"
+  },
+  {
+    "objectID": "session1.html#facilitator",
+    "href": "session1.html#facilitator",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "Facilitator",
+    "text": "Facilitator\nDavid Ríos Insua (ICMAT-CSIC)"
+  },
+  {
+    "objectID": "session1.html#discussion-topics",
+    "href": "session1.html#discussion-topics",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "Discussion Topics",
+    "text": "Discussion Topics\nIntroduction to sequence modeling, overview of neural networks, and the role of recurrent neural networks (RNNs) in handling sequential data."
   }
 ]

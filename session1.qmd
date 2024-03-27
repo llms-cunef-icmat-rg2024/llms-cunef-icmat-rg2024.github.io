@@ -1,0 +1,22 @@
+---
+title: "Intro to Deep Learning focusing on LSTMs and GRUs"
+---
+
+## Purpose
+
+Provide basic background info to follow the forthcoming.
+
+## Reading suggestions
+
+“Current Advances in Neural Networks” provides a broad overview of key concepts and issues in relation to NNs ([link](https://www.annualreviews.org/doi/pdf/10.1146/annurev-statistics-040220-112019))" including Transformers. An overview of sequence modeling techniques and an empirical comparison of different algorithms is in “Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling" by Chung et al. ([link](https://arxiv.org/abs/1412.3555)).  We shall basically be making a summary of [this course](https://datalab-icmat.github.io/courses_stats.html#Introduction_to_Machine_Learning) to facilitate follow up of the remaining sessions.
+
+## Date
+
+April 9th at 11.30 @ICMAT-CSIC
+
+## Facilitator
+ David Ríos Insua (ICMAT-CSIC)
+
+## Discussion Topics
+
+ Introduction to sequence modeling, overview of neural networks, and the role of recurrent neural networks (RNNs) in handling sequential data. 

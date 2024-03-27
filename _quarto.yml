@@ -2,13 +2,28 @@ project:
   type: website
   output-dir: docs
 
+
 website:
   title: "Intro to LLMs"
+  favicon: img/surf.png
   navbar:
+    logo: img/surf.png
     left:
-      - href: index.qmd
+      - file: index.qmd
         text: Home
-      - about.qmd
+      - file: session1.qmd
+        text: "Session 1"
+        
+    #right:
+    #  - icon: bar-chart-fill
+    #    href: whatever
+
+  page-footer: 
+    right: |
+      ![Logo image](/img/cunef.png){width=20%}
+    left: |
+      ![Logo image](/img/icmat.png){width=20%}
+
 
 format:
   html:
