@@ -10,7 +10,7 @@ Locations: ICMAT-CSIC and CUNEF University  (Also online)
 Coordinators: Roi Naveiro (CUNEF University) and David Rios Insua (ICMAT-CSIC)
 
 <div style="text-align: center;">
-  <img src="img/surf.png" width="500" height="500">
+  <img src="img/surf.png" style="width: 100%;">
 </div>
 
 LLMs have marked much of the recent hype about AI, even leading to last minute modifications of the recent EU AI Act. We pursue two objectives with this activity:
