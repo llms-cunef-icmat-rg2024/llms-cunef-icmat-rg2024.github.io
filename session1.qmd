@@ -20,3 +20,12 @@ April 9th at 11.30 @ICMAT-CSIC
 ## Discussion Topics
 
  Introduction to sequence modeling, overview of neural networks, and the role of recurrent neural networks (RNNs) in handling sequential data. 
+
+## Session recording
+
+You can watch the session [here](https://youtube.com/live/j2Gl1JWhiYM).
+
+## Slides
+
+Available [here](slides/session1/introllms.pdf).
+

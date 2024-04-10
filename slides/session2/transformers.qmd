@@ -1,0 +1,386 @@
+---
+title: "Formal Algorithms for Transformers"
+author: "Roi Naveiro (CUNEF University)"
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    css: styles.css
+    #footer: <https://roinaveiro.github.io>
+resources:
+  - demo.pdf
+---
+
+## Introduction
+
+* Transformers are a type of neural network architecture that has become the state-of-the-art for many natural language processing tasks.
+
+
+## Key Methodological Contributions
+
+* Automatic Differentiation
+
+* Stochastic Gradient Descent
+
+* Architectures 
+  * MLP
+  * CNN, RNN
+  * Attention Mechanism
+
+## Transformers
+
+> "The transformer model has been proven to be superior in quality for many sequence-to-sequence tasks while being more parallelizable. The transformer model follows the encoder-decoder architecture using self-attention mechanisms. The self-attention mechanism allows the transformer to weigh the importance of other words in the sentence when encoding or decoding a particular word."
+
+— Source: [Google Developers](https://developers.google.com/machine-learning/glossary#transformer_model)
+
+
+## Overview
+
+## Notation
+
+* Vocabulary: $V$, is a finite set identified with $[N_V] \equiv \lbrace 1, \dots, N_V\rbrace$.
+
+* Letters, words, most commonly subwords.
+
+* Sequence: $\boldsymbol{x} \equiv x[1:l] = x[1] \dots x[N] \in V^*$
+
+* $\ell_{\text{max}}$: maximum length of a sequence.
+
+## Data
+
+* Data is assumed to be independent and identically distributed (i.i.d.).
+
+* e.g. a collection of independent articles
+
+* If length of sequence is greater than $\ell_{\text{max}}$, then sequence is broken into smaller chunks.
+
+* Details about the data depend on the task.
+
+## Transformers Tasks - Sequence Modeling
+
+* $\boldsymbol{x}_n \in V^*$ for $n = 1, \dots, N_{\text{data}}$ be a dataset of sequences
+
+* Assumed to be and i.i.d. sample from a distribution $P$ over $V^*$
+
+* **Goal**: Learn an estimator $\hat{P}$ of $P(\boldsymbol{x})$.
+
+* Usually decomposed: $\hat{P} = \hat{P}_{\theta}(x[1]) \cdot \hat{P}_{\theta}(x[2] | x[1]) \cdot \dots \cdot \hat{P}_{\theta}(x[\ell] | x[1:\ell-1])$
+
+* **Goal**: learn distribution over single token given the preceding tokens.
+
+* e.g. language modeling
+
+## Transformers Tasks - Sequence-to-Sequence Prediction
+
+* $(\boldsymbol{x}_n, \boldsymbol{z}_n) \sim P$ with $P$ a distribution over $V^* \times V^*$.
+
+* **Goal**: Learn an estimator $\hat{P}$ of $P(\boldsymbol{z} | \boldsymbol{x})$.
+
+* Also decomposed using the chain rule of probability.
+
+* e.g. machine translation
+
+## Transformers Tasks - Sequence Classification
+
+* $(\boldsymbol{x}_n, c_n) \sim P(\boldsymbol{x}, c)$ with $c \in [N_C]$ a finite set of classes.
+
+* Goal is to learn conditional distribution $P(c | \boldsymbol{x})$.
+
+* e.g. sentiment analysis.
+
+## Tokenization
+
+* A transformer will learn a vector represenration of each token in each sequence.
+
+* First thing is to break each sequence of vocabulary elements (tokens).
+
+* Several tokenization strategies. Take this text as an example
+
+> *León is the best city in Spain.*
+
+
+## Tokenization - Character-level
+
+* Take $V$ to be the set of characters (in a given alphabet).
+
+* In the previous example, the sequence would be: 
+
+> [L, e, ó, n, , ...] 
+
+* Long sequences.
+
+
+## Tokenization - Word-level
+
+* Take $V$ to be the set of English words.
+
+* In the previous example, the sequence would be:
+
+> [León, is, the, best, city, in, Spain]
+
+* Requires very large vocabulary.
+
+* Cannot deal with new words at test time.
+
+## Tokenization - Subword-level
+
+* $V$ is a set of subwords.
+
+* Most utilized tokenization strategy nowadays.
+
+* GPT-3 uses a tokenizer of 50,257 subwords.
+
+## Tokenization 
+
+* Each vocabulary element is associated with a unique integer.
+
+* Five special tokens are added to the vocabulary:
+  * `<PAD>`: padding token
+  * `<BOS>`: beginning of sequence token
+  * `<EOS>`: end of sequence token
+  * `<UNK>`: unknown token
+  * `<MASK>`: mask token
+
+## Tokenization 
+
+* Piece of text is represented as sequence of integers preceded by `<BOS>` and followed by  `<EOS>` tokens.
+
+* If the text is smaller than $\ell_{\text{max}}$, it is padded with `<PAD>` tokens.
+
+* If the text is longer than $\ell_{\text{max}}$, it is broken into smaller chunks.
+
+* We will use $N=\ell_{\text{max}}$ for simplicity.
+
+## Tokenization - Word-level
+
+<span style="background-color: yellow;">**[Code Pointer 1]**</span>
+
+## Architectural Components
+
+* Token Embedding
+* Positional Embedding
+* Transformer Block
+* Output Layer
+
+## Token Embedding
+
+* First task is to convert each sequence into a matrix of token embeddings.
+
+* Token embeddings map vocabulary elements into column vectors in $\mathbb{R}^{D}$.
+
+* Sequence of tokens are matrices of size $D \times N$.
+
+* Embeddings can be fixed or learned. Parameters are $\boldsymbol{W_e} \in \mathbb{R}^{D \times N_V}$.
+
+<span style="background-color: yellow;">**[Code Pointer 2]**</span>
+
+## Positional Embedding
+
+* Vector representation of a token's position in a sequence.
+
+* Map positions to vectors in $\mathbb{R}^{D}$.
+
+* Can be fixed or learned. Parameters are $\boldsymbol{W_p} \in \mathbb{R}^{D \times N}$.
+
+## Final input to the Transformer Block
+
+* For the n-th token in the sequence, the input to the transformer block is:
+$$
+\boldsymbol{x}^{(0)}_n = \boldsymbol{W}_e[:, x[n]] + \boldsymbol{W}_p[:, n] \in \mathbb{R}^{D}
+$$
+
+![](transformers_files/extracted_from_page_2_image_1.png){.absolute width=65%}
+
+## Final input to the Transformer Block
+
+<span style="background-color: yellow;">**[Code Pointer 3]**</span>
+
+## Transformer Block
+
+Transformers generate a new representation of the input sequence by applying a series of transformer blocks.
+
+$$ 
+X^{(m)} = \text{TransformerBlock}(X^{(m-1)})	
+$$
+
+## Transformer Block
+
+Block consists of two stages:
+
+1. **Self-Attention across the sequence**: refines the representation of each token by considering the other tokens in the sequence: how much a word in position $i$ depends on words in positions $j$. **[Vertically]**
+
+2. **Multi-layer perceptron across features**: refines the features representation of each token. **[Horizontally]**
+
+
+## 1. Self-Attention across the sequence
+
+Output of the self-attention mechanism is a matrix of size $D \times N$, call it $Y^{(m)}$. Output is produced aggregating information across the sequence independently for each feature using attention.
+
+## 1. Self-Attention across the sequence
+### Attention
+
+Specifically for the $n$-th feature, the output, denoted by $\boldsymbol{y}^{(m)}_n$, is computed as a weighted average of the input features:
+
+$$
+\boldsymbol{y}^{(m)}_n = \sum_{n'=1}^{N} \boldsymbol{x}^{(m-1)}_{n'} \cdot A^{(m)}_{n'n}
+$$
+
+$A^{(m)}$ is the attention matrix of size $N \times N$ whose elements are normalized over the columns so $\sum_{n'=1}^{N} A^{(m)}_{n'n} = 1$.
+
+## 1. Self-Attention across the sequence
+### Attention - Intuition
+
+* $A^{(m)}_{n'n}$ will take high values for locations in the sequence $n'$ that are relevant to the location $n$.
+
+* For the whole sequence, we can write:
+$$
+Y^{(m)} = X^{(m-1)} \cdot A^{(m)}
+$$ 
+
+## 1. Self-Attention across the sequence
+### Attention - Intuition
+
+![](transformers_files/extracted_from_page_3_image_1.png){.absolute width=85%}
+
+## 1. Self-Attention across the sequence
+### Self-Attention
+
+* What is the attention matrix $A^{(m)}$?
+
+* Attention matrix is generated from the sequence itself.
+
+* Idea
+
+$$
+A^{(m)} = \frac{\exp(\boldsymbol{x}_n^\top \boldsymbol{x}_{n'})}{\sum_{n''=1}^{N} \exp(\boldsymbol{x_n}^\top \boldsymbol{x_{n''}})}
+$$
+
+## 1. Self-Attention across the sequence
+### Self-Attention
+
+* An alternative
+
+$$
+A^{(m)} = \text{softmax}(\boldsymbol{x}_n^\top U^\top U \boldsymbol{x}_{n'})
+$$
+
+* $U$ projects features to a lower dimensional space, so is a $K \times D$ matrix with $K < D$.
+
+* Only some of the features of the input sequence need to be used to compute similarity.
+
+## 1. Self-Attention across the sequence
+### Self-Attention
+
+* Numerator is symmetric in $n$ and $n'$!!
+
+* Solution: 
+
+$$
+A^{(m)} = \text{softmax}(\boldsymbol{x}_n^\top U_{\boldsymbol{k}}^\top U_{\boldsymbol{q}} \boldsymbol{x}_{n'})
+$$
+
+* The quantity $\boldsymbol{q}_n = U_{\boldsymbol{q}} \boldsymbol{x}_n$ is called the query vector.
+
+* The quantity $\boldsymbol{k}_n = U_{\boldsymbol{k}} \boldsymbol{x}_n$ is called the key vector.
+
+* Matrices $U_{\boldsymbol{q}} \in \mathbb{R}^{K \times D}$ and $U_{\boldsymbol{k}} \in \mathbb{R}^{K \times D}$ are **learned**.
+
+## 1. Self-Attention across the sequence
+### Multi-Head Self-Attention
+
+* There is just one attention matrix $A^{(m)}$. It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.
+
+* Solution: compute multiple attention matrices.
+
+$$
+Y^{(m)} = \sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}	
+$$
+
+where
+
+$$
+A_h^{(m)} = \text{softmax} \left( (\boldsymbol{q}_{h,n}^{(m)}) \cdot (\boldsymbol{k}_{h,n'}^{(m)}) \right)
+$$
+
+## 1. Self-Attention across the sequence
+### Multi-Head Self-Attention
+
+* The dot product $V_h^{(m)} X^{(m-1)}$ is called the value vector.
+
+![](transformers_files/extracted_from_page_5_image_1.png){.absolute width=65%}
+
+## 2. Multi-layer perceptron across features
+
+
+This stage operates across the features, refining the representation using a non linear transformation.
+
+## 2. Multi-layer perceptron across features
+
+* We apply a multi-layer perceptron to the vector of features at each location $n$ in the sequence independently.
+
+$$
+\boldsymbol{x}_n^{(m)} = \text{MLP}_\theta(\boldsymbol{y}_n^{(m)})
+$$
+
+Notice that the parameters of the MLP are the same for each location $n$.
+
+## Transformer Block: all together
+
+Rather than stacking MHSA and MLP directly, we use two transformations that produce more stable training: Residual Connection and Layer Normalization.
+
+## Transformer Block: all together
+### Residual Connection
+
+* Stabilize learning.
+
+* Instead of directly specifying a function $x^{(m)} = f_\theta(x^{(m-1)})$, the idea is to parameterize it as the identity function plus a residual term $x^{(m)} = x^{(m-1)} + \text{res}_\theta(x^{(m-1)})$.
+
+* Modelling differences of representations rather than the representations themselves.
+
+* Works well when function being learned is close to the identity.
+
+* Used after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation.
+
+## Transformer Block: all together
+### Layer Normalization
+
+* Also stabilizes learning.
+
+* Many choices, e.g. LayerNorm normalizes each token independently.
+
+$$
+LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - \text{mean}(\boldsymbol{x}_{n})) \gamma_d + \beta_d
+$$
+
+* This prevents feature representations from blowing up in magnitude.
+
+## Transformer Block: all together
+
+![](transformers_files/block.png){.absolute width=65%}
+
+## Loss Function and Training
+
+* The loss function is the negative log-likelihood of the data plus a regularization term.
+
+* Training is done using stochastic gradient descent or some of its variants such as Adam, RMSProp, etc.
+
+* This is done almost automatically using automatic differentiation in any deep learning framework, such as PyTorch or TensorFlow.
+
+## Conclusion
+
+* Permutation Equivariance 
+
+* Positional Encoding: The transformer model does not have any built-in understanding of the order of the words in a sequence. To give the model some information about the relative or absolute position of the words in the sequence, we add positional encoding to the input embeddings.
+
+*  Residual connections mitigate the vanishing gradient problem. The intuition is that if the gradient is too small, we can just add the input to the output and the gradient will be larger.
+
+* Layer normalization in embedding dimension: Layer normalization is a technique to normalize the inputs of a layer in such a way that the mean is 0 and the variance is 1. This helps to stabilize the training of the model.
+
+  * Stability: Layer normalization stabilizes the learning process by normalizing the inputs to each layer to have a mean of 0 and a variance of 1. This reduces the chance of the values either vanishing (becoming too small) or exploding (becoming too large), which can cause the model to stop learning.
+
+  * Regularization: Layer normalization also acts as a form of regularization, reducing overfitting. This is because it adds noise to the hidden states during training, which helps the model generalize better to unseen data.
+
+  * Speed: Layer normalization can also make the training process faster, because it allows for higher learning rates and less careful initialization.
+

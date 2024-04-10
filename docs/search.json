@@ -54,5 +54,425 @@
     "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
     "section": "Discussion Topics",
     "text": "Discussion Topics\nIntroduction to sequence modeling, overview of neural networks, and the role of recurrent neural networks (RNNs) in handling sequential data."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformers",
+    "href": "slides/session2/transformers.html#transformers",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformers",
+    "text": "Transformers\n\n“The transformer model has been proven to be superior in quality for many sequence-to-sequence tasks while being more parallelizable. The transformer model follows the encoder-decoder architecture using self-attention mechanisms. The self-attention mechanism allows the transformer to weigh the importance of other words in the sentence when encoding or decoding a particular word.”\n\n— Source: Google Developers"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#things-to-understand",
+    "href": "slides/session2/transformers.html#things-to-understand",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Things to understand",
+    "text": "Things to understand\n\nPermutation Equivariance\nPositional Encoding: The transformer model does not have any built-in understanding of the order of the words in a sequence. To give the model some information about the relative or absolute position of the words in the sequence, we add positional encoding to the input embeddings.\nResidual connections: Residual connections are simply adding the input of the layer to it output. For example, we add the initial embedding to the output of the attention. Residual connections mitigate the vanishing gradient problem. The intuition is that if the gradient is too small, we can just add the input to the output and the gradient will be larger.\nLayer normalization in embedding dimension: Layer normalization is a technique to normalize the inputs of a layer in such a way that the mean is 0 and the variance is 1. This helps to stabilize the training of the model.\n\nStability: Layer normalization stabilizes the learning process by normalizing the inputs to each layer to have a mean of 0 and a variance of 1. This reduces the chance of the values either vanishing (becoming too small) or exploding (becoming too large), which can cause the model to stop learning.\nRegularization: Layer normalization also acts as a form of regularization, reducing overfitting. This is because it adds noise to the hidden states during training, which helps the model generalize better to unseen data.\nSpeed: Layer normalization can also make the training process faster, because it allows for higher learning rates and less careful initialization."
+  },
+  {
+    "objectID": "session1.html#slides",
+    "href": "session1.html#slides",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "Slides",
+    "text": "Slides\nAvailable here."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#introduction",
+    "href": "slides/session2/transformers.html#introduction",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Introduction",
+    "text": "Introduction\n\nTransformers are a type of neural network architecture that has become the state-of-the-art for many natural language processing tasks."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#key-methodological-contributions",
+    "href": "slides/session2/transformers.html#key-methodological-contributions",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Key Methodological Contributions",
+    "text": "Key Methodological Contributions\n\nAutomatic Differentiation\nStochastic Gradient Descent\nArchitectures\n\nMLP\nCNN, RNN\nAttention Mechanism"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#overview",
+    "href": "slides/session2/transformers.html#overview",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Overview",
+    "text": "Overview"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#notation",
+    "href": "slides/session2/transformers.html#notation",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Notation",
+    "text": "Notation\n\nVocabulary: \\(V\\), is a finite set identified with \\([N_V] \\equiv \\lbrace 1, \\dots, N_V\\rbrace\\).\nLetters, words, most commonly subwords.\nSequence: \\(\\boldsymbol{x} \\equiv x[1:l] = x[1] \\dots x[N] \\in V^*\\)\n\\(\\ell_{\\text{max}}\\): maximum length of a sequence."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization",
+    "href": "slides/session2/transformers.html#tokenization",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization",
+    "text": "Tokenization\n\nA transformer will learn a vector represenration of each token in each sequence.\nFirst thing is to break each sequence of vocabulary elements (tokens).\nSeveral tokenization strategies. Take this text as an example\n\n\nLeón is the best city in Spain."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformers-tasks",
+    "href": "slides/session2/transformers.html#transformers-tasks",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformers Tasks",
+    "text": "Transformers Tasks"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformers-tasks---sequence-modeling",
+    "href": "slides/session2/transformers.html#transformers-tasks---sequence-modeling",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformers Tasks - Sequence Modeling",
+    "text": "Transformers Tasks - Sequence Modeling\n\n\\(\\boldsymbol{x}_n \\in V^*\\) for \\(n = 1, \\dots, N_{\\text{data}}\\) be a dataset of sequences\nAssumed to be and i.i.d. sample from a distribution \\(P\\) over \\(V^*\\)\nGoal: Learn an estimator \\(\\hat{P}\\) of \\(P(\\boldsymbol{x})\\).\nUsually decomposed: \\(\\hat{P} = \\hat{P}_{\\theta}(x[1]) \\cdot \\hat{P}_{\\theta}(x[2] | x[1]) \\cdot \\dots \\cdot \\hat{P}_{\\theta}(x[\\ell] | x[1:\\ell-1])\\)\nGoal: learn distribution over single token given the preceding tokens.\ne.g. language modeling"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-modeling",
+    "href": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-modeling",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformers Tasks - Sequence-to-Sequence Modeling",
+    "text": "Transformers Tasks - Sequence-to-Sequence Modeling"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformers-tasks---sequence-classification",
+    "href": "slides/session2/transformers.html#transformers-tasks---sequence-classification",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformers Tasks - Sequence Classification",
+    "text": "Transformers Tasks - Sequence Classification\n\n\\((\\boldsymbol{x}_n, c_n) \\sim P(\\boldsymbol{x}, c)\\) with \\(c \\in [N_C]\\) a finite set of classes.\nGoal is to learn conditional distribution \\(P(c | \\boldsymbol{x})\\).\ne.g. sentiment analysis."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization---word-level",
+    "href": "slides/session2/transformers.html#tokenization---word-level",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization - Word-level",
+    "text": "Tokenization - Word-level\n\nTake \\(V\\) to be the set of English words.\nIn the previous example, the sequence would be:\n\n\n[León, is, the, best, city, in, Spain]\n\n\nRequires very large vocabulary.\nCannot deal with new words at test time."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#token-embedding",
+    "href": "slides/session2/transformers.html#token-embedding",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Token Embedding",
+    "text": "Token Embedding\n\nFirst task is to convert each sequence into a matrix of token embeddings.\nToken embeddings map vocabulary elements into column vectors in \\(\\mathbb{R}^{D}\\).\nSequence of tokens are matrices of size \\(D \\times N\\).\nEmbeddings can be fixed or learned. Parameters are \\(\\boldsymbol{W_e} \\in \\mathbb{R}^{D \\times N_V}\\).\n\n[Code Pointer 2]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#positional-embedding",
+    "href": "slides/session2/transformers.html#positional-embedding",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Positional Embedding",
+    "text": "Positional Embedding\n\nVector representation of a token’s position in a sequence.\nMap positions to vectors in \\(\\mathbb{R}^{D}\\).\nCan be fixed or learned. Parameters are \\(\\boldsymbol{W_p} \\in \\mathbb{R}^{D \\times N}\\)."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#attention",
+    "href": "slides/session2/transformers.html#attention",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Attention",
+    "text": "1. Attention\nSpecifically for the \\(n\\)-th feature, the output, denoted by \\(\\boldsymbol{y}^{(m)}_n\\), is computed as a weighted average of the input features:\n\\[\n\\boldsymbol{y}^{(m)}_n = \\sum_{n'=1}^{N} \\boldsymbol{x}^{(m-1)}_{n'} \\cdot A^{(m)}_{n'n}\n\\]\n\\(A^{(m)}\\) is the attention matrix of size \\(N \\times N\\) whose elements are normalized over the columns so \\(\\sum_{n'=1}^{N} A^{(m)}_{n'n} = 1\\)."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#multi-head-attention",
+    "href": "slides/session2/transformers.html#multi-head-attention",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Multi-Head Attention",
+    "text": "Multi-Head Attention\n\nThere is just one attention matrix \\(A^{(m)}\\). It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.\nSolution: compute multiple attention matrices.\n\n\\[\nY^{(m)} = \\sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}  \n\\]\nwhere\n\\[\nA_h^{(m)} = \\text{softmax} \\left( (\\boldsymbol{q}_{h,n}^{(m)}) \\cdot (\\boldsymbol{k}_{h,n'}^{(m)}) \\right)\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#architectural-components",
+    "href": "slides/session2/transformers.html#architectural-components",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Architectural Components",
+    "text": "Architectural Components\n\nToken Embedding\nPositional Embedding\nTransformer Block\nOutput Layer"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention",
+    "href": "slides/session2/transformers.html#self-attention",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention",
+    "text": "1. Self-Attention\n\nWhat is the attention matrix \\(A^{(m)}\\)?\nAttention matrix is generated from the sequence itself.\nIdea\n\n\\[\nA^{(m)} = \\frac{\\exp(\\boldsymbol{x}_n^\\top \\boldsymbol{x}_{n'})}{\\sum_{n''=1}^{N} \\exp(\\boldsymbol{x_n}^\\top \\boldsymbol{x_{n''}})}\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#feed-forward-network",
+    "href": "slides/session2/transformers.html#feed-forward-network",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Feed-Forward Network",
+    "text": "Feed-Forward Network"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#layer-normalization",
+    "href": "slides/session2/transformers.html#layer-normalization",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Layer Normalization",
+    "text": "Layer Normalization\n\nAlso stabilizes learning.\nMany choices, e.g. LayerNorm normalizes each token independently.\n\n\\[\nLayerNorm(X)_{d,n} = \\frac{1}{\\sqrt{\\text{var}(\\boldsymbol{x}_{n})}} (x_{d,n} - \\text{mean}(\\boldsymbol{x}_{n})) \\gamma_d + \\beta_d\n\\]\n\nThis prevents feature representations from blowing up in magnitude."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#residual-connection",
+    "href": "slides/session2/transformers.html#residual-connection",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Residual Connection",
+    "text": "Residual Connection\n\nStabilize learning.\nInstead of directly specifying a function \\(x^{(m)} = f_\\theta(x^{(m-1)})\\), the idea is to parameterize it as the identity function plus a residual term \\(x^{(m)} = x^{(m-1)} + \\text{res}_\\theta(x^{(m-1)})\\).\nModelling differences of representations rather than the representations themselves.\nWorks well when function being learned is close to the identity.\nUsed after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block",
+    "href": "slides/session2/transformers.html#transformer-block",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block",
+    "text": "Transformer Block\nTransformers generate a new representation of the input sequence by applying a series of transformer blocks.\n\\[\nX^{(m)} = \\text{TransformerBlock}(X^{(m-1)})    \n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#comments",
+    "href": "slides/session2/transformers.html#comments",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Comments",
+    "text": "Comments\n\nPermutation Equivariance\nPositional Encoding: The transformer model does not have any built-in understanding of the order of the words in a sequence. To give the model some information about the relative or absolute position of the words in the sequence, we add positional encoding to the input embeddings.\nResidual connections: Residual connections are simply adding the input of the layer to it output. For example, we add the initial embedding to the output of the attention. Residual connections mitigate the vanishing gradient problem. The intuition is that if the gradient is too small, we can just add the input to the output and the gradient will be larger.\nLayer normalization in embedding dimension: Layer normalization is a technique to normalize the inputs of a layer in such a way that the mean is 0 and the variance is 1. This helps to stabilize the training of the model.\n\nStability: Layer normalization stabilizes the learning process by normalizing the inputs to each layer to have a mean of 0 and a variance of 1. This reduces the chance of the values either vanishing (becoming too small) or exploding (becoming too large), which can cause the model to stop learning.\nRegularization: Layer normalization also acts as a form of regularization, reducing overfitting. This is because it adds noise to the hidden states during training, which helps the model generalize better to unseen data.\nSpeed: Layer normalization can also make the training process faster, because it allows for higher learning rates and less careful initialization."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#data",
+    "href": "slides/session2/transformers.html#data",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Data",
+    "text": "Data\n\nData is assumed to be independent and identically distributed (i.i.d.).\ne.g. a collection of independent articles\nIf length of sequence is greater than \\(\\ell_{\\text{max}}\\), then sequence is broken into smaller chunks.\nDetails about the data depend on the task."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-prediction",
+    "href": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-prediction",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformers Tasks - Sequence-to-Sequence Prediction",
+    "text": "Transformers Tasks - Sequence-to-Sequence Prediction\n\n\\((\\boldsymbol{x}_n, \\boldsymbol{z}_n) \\sim P\\) with \\(P\\) a distribution over \\(V^* \\times V^*\\).\nGoal: Learn an estimator \\(\\hat{P}\\) of \\(P(\\boldsymbol{z} | \\boldsymbol{x})\\).\nAlso decomposed using the chain rule of probability.\ne.g. machine translation"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization-1",
+    "href": "slides/session2/transformers.html#tokenization-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization",
+    "text": "Tokenization\n\nEach vocabulary element is associated with a unique integer.\nFive special tokens are added to the vocabulary:\n\n&lt;PAD&gt;: padding token\n&lt;BOS&gt;: beginning of sequence token\n&lt;EOS&gt;: end of sequence token\n&lt;UNK&gt;: unknown token\n&lt;MASK&gt;: mask token"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization---character-level",
+    "href": "slides/session2/transformers.html#tokenization---character-level",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization - Character-level",
+    "text": "Tokenization - Character-level\n\nTake \\(V\\) to be the set of characters (in a given alphabet).\nIn the previous example, the sequence would be:\n\n\n[L, e, ó, n, , …]\n\n\nLong sequences."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization---subword-level",
+    "href": "slides/session2/transformers.html#tokenization---subword-level",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization - Subword-level",
+    "text": "Tokenization - Subword-level\n\n\\(V\\) is a set of subwords.\nMost utilized tokenization strategy nowadays.\nGPT-3 uses a tokenizer of 50,257 subwords."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization---word-level-1",
+    "href": "slides/session2/transformers.html#tokenization---word-level-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization - Word-level",
+    "text": "Tokenization - Word-level\n[Code Pointer 1]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#token-embedding-1",
+    "href": "slides/session2/transformers.html#token-embedding-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Token Embedding",
+    "text": "Token Embedding\n\nEmbeddings can be fixed or learned. Parameters are \\(\\boldsymbol{W_e} \\in \\mathbb{R}^{D \\times N_V}\\).\n\n[Code Pointer 2]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#final-input-to-the-transformer-block",
+    "href": "slides/session2/transformers.html#final-input-to-the-transformer-block",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Final input to the Transformer Block",
+    "text": "Final input to the Transformer Block\n\nFor the n-th token in the sequence, the input to the transformer block is: \\[\n\\boldsymbol{x}^{(0)}_n = \\boldsymbol{W}_e[:, x[n]] + \\boldsymbol{W}_p[:, n] \\in \\mathbb{R}^{D}\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-1",
+    "href": "slides/session2/transformers.html#transformer-block-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block",
+    "text": "Transformer Block\nBlock consists of two stages:\n\nSelf-Attention across the sequence: refines the representation of each token by considering the other tokens in the sequence: how much a word in position \\(i\\) depends on words in positions \\(j\\). [Vertically]\nMulti-layer perceptron across features: refines the features representation of each token. [Horizontally]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#final-input-to-the-transformer-block-1",
+    "href": "slides/session2/transformers.html#final-input-to-the-transformer-block-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Final input to the Transformer Block",
+    "text": "Final input to the Transformer Block\n[Code Pointer 3]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nOutput of the self-attention mechanism is a matrix of size \\(D \\times N\\), call it \\(Y^{(m)}\\). Output is produced aggregating information across the sequence independently for each feature using attention."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-2",
+    "href": "slides/session2/transformers.html#transformer-block-2",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block",
+    "text": "Transformer Block"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#attention---intuition",
+    "href": "slides/session2/transformers.html#attention---intuition",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Attention - Intuition",
+    "text": "1. Attention - Intuition\n\n\\(A^{(m)}_{n'n}\\) will take high values for locations in the sequence \\(n'\\) that are relevant to the location \\(n\\).\nFor the whole sequence, we can write: \\[\nY^{(m)} = X^{(m-1)} \\cdot A^{(m)}\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#attention---intuition-1",
+    "href": "slides/session2/transformers.html#attention---intuition-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Attention - Intuition",
+    "text": "1. Attention - Intuition"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-1",
+    "href": "slides/session2/transformers.html#self-attention-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Self-Attention",
+    "text": "Self-Attention\n\nAn alternative\n\n\\[\nA^{(m)} = \\text{softmax}(\\boldsymbol{x}_n^\\top U^\\top U \\boldsymbol{x}_{n'})\n\\]\n\n\\(U\\) projects features to a lower dimensional space, so is a \\(K \\times D\\) matrix with \\(K &lt; D\\).\nOnly some of the features of the input sequence need to be used to compute similarity."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-2",
+    "href": "slides/session2/transformers.html#self-attention-2",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Self-Attention",
+    "text": "Self-Attention\n\nNumerator is symmetric in \\(n\\) and \\(n'\\)!!\nSolution:\n\n\\[\nA^{(m)} = \\text{softmax}(\\boldsymbol{x}_n^\\top U_{\\boldsymbol{k}}^\\top U_{\\boldsymbol{q}} \\boldsymbol{x}_{n'})\n\\]\n\nThe quantity \\(\\boldsymbol{q}_n = U_{\\boldsymbol{q}} \\boldsymbol{x}_n\\) is called the query vector.\nThe quantity \\(\\boldsymbol{k}_n = U_{\\boldsymbol{k}} \\boldsymbol{x}_n\\) is called the key vector.\nMatrices \\(U_{\\boldsymbol{q}} \\in \\mathbb{R}^{K \\times D}\\) and \\(U_{\\boldsymbol{k}} \\in \\mathbb{R}^{K \\times D}\\) are learned."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#multi-head-attention-1",
+    "href": "slides/session2/transformers.html#multi-head-attention-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Multi-Head Attention",
+    "text": "Multi-Head Attention\n\nThe dot product \\(V_h^{(m)} X^{(m-1)}\\) is called the value vector."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#multi-layer-perceptron-across-features-1",
+    "href": "slides/session2/transformers.html#multi-layer-perceptron-across-features-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "2. Multi-layer perceptron across features",
+    "text": "2. Multi-layer perceptron across features\n\nWe apply a multi-layer perceptron to the vector of features at each location \\(n\\) in the sequence independently.\n\n\\[\n\\boldsymbol{x}_n^{(m)} = \\text{MLP}_\\theta(\\boldsymbol{y}_n^{(m)})\n\\]\nNotice that the parameters of the MLP are the same for each location \\(n\\)."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#finally-transformer-block",
+    "href": "slides/session2/transformers.html#finally-transformer-block",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Finally: Transformer Block",
+    "text": "Finally: Transformer Block"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tokenization-2",
+    "href": "slides/session2/transformers.html#tokenization-2",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tokenization",
+    "text": "Tokenization\n\nPiece of text is represented as sequence of integers preceded by &lt;BOS&gt; and followed by &lt;EOS&gt; tokens.\nIf the text is smaller than \\(\\ell_{\\text{max}}\\), it is padded with &lt;PAD&gt; tokens.\nIf the text is longer than \\(\\ell_{\\text{max}}\\), it is broken into smaller chunks.\nWe will use \\(N=\\ell_{\\text{max}}\\) for simplicity."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-1",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nAttention\nSpecifically for the \\(n\\)-th feature, the output, denoted by \\(\\boldsymbol{y}^{(m)}_n\\), is computed as a weighted average of the input features:\n\\[\n\\boldsymbol{y}^{(m)}_n = \\sum_{n'=1}^{N} \\boldsymbol{x}^{(m-1)}_{n'} \\cdot A^{(m)}_{n'n}\n\\]\n\\(A^{(m)}\\) is the attention matrix of size \\(N \\times N\\) whose elements are normalized over the columns so \\(\\sum_{n'=1}^{N} A^{(m)}_{n'n} = 1\\)."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-2",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-2",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nAttention - Intuition\n\n\\(A^{(m)}_{n'n}\\) will take high values for locations in the sequence \\(n'\\) that are relevant to the location \\(n\\).\nFor the whole sequence, we can write: \\[\nY^{(m)} = X^{(m-1)} \\cdot A^{(m)}\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-3",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-3",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nAttention - Intuition"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-4",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-4",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nSelf-Attention\n\nWhat is the attention matrix \\(A^{(m)}\\)?\nAttention matrix is generated from the sequence itself.\nIdea\n\n\\[\nA^{(m)} = \\frac{\\exp(\\boldsymbol{x}_n^\\top \\boldsymbol{x}_{n'})}{\\sum_{n''=1}^{N} \\exp(\\boldsymbol{x_n}^\\top \\boldsymbol{x_{n''}})}\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-5",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-5",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nSelf-Attention\n\nAn alternative\n\n\\[\nA^{(m)} = \\text{softmax}(\\boldsymbol{x}_n^\\top U^\\top U \\boldsymbol{x}_{n'})\n\\]\n\n\\(U\\) projects features to a lower dimensional space, so is a \\(K \\times D\\) matrix with \\(K &lt; D\\).\nOnly some of the features of the input sequence need to be used to compute similarity."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-6",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-6",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nSelf-Attention\n\nNumerator is symmetric in \\(n\\) and \\(n'\\)!!\nSolution:\n\n\\[\nA^{(m)} = \\text{softmax}(\\boldsymbol{x}_n^\\top U_{\\boldsymbol{k}}^\\top U_{\\boldsymbol{q}} \\boldsymbol{x}_{n'})\n\\]\n\nThe quantity \\(\\boldsymbol{q}_n = U_{\\boldsymbol{q}} \\boldsymbol{x}_n\\) is called the query vector.\nThe quantity \\(\\boldsymbol{k}_n = U_{\\boldsymbol{k}} \\boldsymbol{x}_n\\) is called the key vector.\nMatrices \\(U_{\\boldsymbol{q}} \\in \\mathbb{R}^{K \\times D}\\) and \\(U_{\\boldsymbol{k}} \\in \\mathbb{R}^{K \\times D}\\) are learned."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-7",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-7",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nThere is just one attention matrix \\(A^{(m)}\\). It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.\nSolution: compute multiple attention matrices.\n\n\\[\nY^{(m)} = \\sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}  \n\\]\nwhere\n\\[\nA_h^{(m)} = \\text{softmax} \\left( (\\boldsymbol{q}_{h,n}^{(m)}) \\cdot (\\boldsymbol{k}_{h,n'}^{(m)}) \\right)\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-8",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-8",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nThe dot product \\(V_h^{(m)} X^{(m-1)}\\) is called the value vector."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#multi-layer-perceptron-across-features",
+    "href": "slides/session2/transformers.html#multi-layer-perceptron-across-features",
+    "title": "Formal Algorithms for Transformers",
+    "section": "2. Multi-layer perceptron across features",
+    "text": "2. Multi-layer perceptron across features\nThis stage operates across the features, refining the representation using a non linear transformation."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-all-together",
+    "href": "slides/session2/transformers.html#transformer-block-all-together",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block: all together",
+    "text": "Transformer Block: all together\nRather than stacking MHSA and MLP directly, we use two transformations that produce more stable training: Residual Connection and Layer Normalization."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-all-together-1",
+    "href": "slides/session2/transformers.html#transformer-block-all-together-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block: all together",
+    "text": "Transformer Block: all together\nResidual Connection\n\nStabilize learning.\nInstead of directly specifying a function \\(x^{(m)} = f_\\theta(x^{(m-1)})\\), the idea is to parameterize it as the identity function plus a residual term \\(x^{(m)} = x^{(m-1)} + \\text{res}_\\theta(x^{(m-1)})\\).\nModelling differences of representations rather than the representations themselves.\nWorks well when function being learned is close to the identity.\nUsed after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-all-together-2",
+    "href": "slides/session2/transformers.html#transformer-block-all-together-2",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block: all together",
+    "text": "Transformer Block: all together\nLayer Normalization\n\nAlso stabilizes learning.\nMany choices, e.g. LayerNorm normalizes each token independently.\n\n\\[\nLayerNorm(X)_{d,n} = \\frac{1}{\\sqrt{\\text{var}(\\boldsymbol{x}_{n})}} (x_{d,n} - \\text{mean}(\\boldsymbol{x}_{n})) \\gamma_d + \\beta_d\n\\]\n\nThis prevents feature representations from blowing up in magnitude."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-all-together-3",
+    "href": "slides/session2/transformers.html#transformer-block-all-together-3",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block: all together",
+    "text": "Transformer Block: all together"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#loss-function-and-training",
+    "href": "slides/session2/transformers.html#loss-function-and-training",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Loss Function and Training",
+    "text": "Loss Function and Training\n\nThe loss function is the negative log-likelihood of the data plus a regularization term.\nTraining is done using stochastic gradient descent or some of its variants such as Adam, RMSProp, etc.\nThis is done almost automatically using automatic differentiation in any deep learning framework, such as PyTorch or TensorFlow."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#conclusion",
+    "href": "slides/session2/transformers.html#conclusion",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nPermutation Equivariance\nPositional Encoding: The transformer model does not have any built-in understanding of the order of the words in a sequence. To give the model some information about the relative or absolute position of the words in the sequence, we add positional encoding to the input embeddings.\nResidual connections mitigate the vanishing gradient problem. The intuition is that if the gradient is too small, we can just add the input to the output and the gradient will be larger.\nLayer normalization in embedding dimension: Layer normalization is a technique to normalize the inputs of a layer in such a way that the mean is 0 and the variance is 1. This helps to stabilize the training of the model.\n\nStability: Layer normalization stabilizes the learning process by normalizing the inputs to each layer to have a mean of 0 and a variance of 1. This reduces the chance of the values either vanishing (becoming too small) or exploding (becoming too large), which can cause the model to stop learning.\nRegularization: Layer normalization also acts as a form of regularization, reducing overfitting. This is because it adds noise to the hidden states during training, which helps the model generalize better to unseen data.\nSpeed: Layer normalization can also make the training process faster, because it allows for higher learning rates and less careful initialization."
+  },
+  {
+    "objectID": "session1.html#session-recording",
+    "href": "session1.html#session-recording",
+    "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
+    "section": "Session recording",
+    "text": "Session recording\nYou can watch the session here."
   }
 ]
