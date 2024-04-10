@@ -27,5 +27,5 @@ You can watch the session [here](https://youtube.com/live/j2Gl1JWhiYM).
 
 ## Slides
 
-Available [here](slides/session1/introllms.pdf).
+Available [here](slides/session1/introllms1.pdf).
 
