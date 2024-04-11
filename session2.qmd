@@ -1,0 +1,45 @@
+---
+title: "Formal Algorithms for Transformers"
+---
+
+## Purpose
+
+Transformers provide the basis to LLMs. Understand their inner workings.
+
+## Reading suggestions
+
+* ["Formal Algorithms for Transformers" by Phuong et. al.](https://arxiv.org/abs/2207.09238)
+
+* ["An introduction to transformers" by Richard Turner](https://arxiv.org/pdf/2304.10557)
+
+* ["Attention Is All You Need" by Vaswani et al.](https://arxiv.org/abs/1706.03762)
+
+* [A softer software oriented intro available](https://osanseviero.github.io/hackerllama/blog/posts/random_transformer/)
+
+* [Step-by-ste implementation](https://peterbloem.nl/blog/transformers)
+
+## Date
+
+April 16th at 11.30. @CUNEF
+
+
+## Facilitator
+
+Roi Naveiro (CUNEF Universidad)
+
+## Discussion Topics
+
+Implement or explore a basic transformer model for a text classification task, focusing on the self-attention mechanism. A deep dive into the algorithms that drive transformer models, including attention mechanisms and positional encoding. 
+
+
+## Session recording
+
+TBA
+
+## Slides
+
+Available [here](slides/session2/transformers.html).
+
+## Code
+
+[Code available here](https://github.com/llms-cunef-icmat-rg2024/session2)

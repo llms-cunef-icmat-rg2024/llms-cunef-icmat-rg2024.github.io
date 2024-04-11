@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.3.319">
 
   <meta name="author" content="Roi Naveiro (CUNEF University)">
   <title>Intro to LLMs - Formal Algorithms for Transformers</title>
@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link rel="stylesheet" href="styles.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -160,8 +160,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -341,14 +340,10 @@ Roi Naveiro (CUNEF University)
 </div>
 
 </section>
-<section id="introduction" class="slide level2">
-<h2>Introduction</h2>
-<ul>
-<li>Transformers are a type of neural network architecture that has become the state-of-the-art for many natural language processing tasks.</li>
-</ul>
-</section>
 <section id="key-methodological-contributions" class="slide level2">
 <h2>Key Methodological Contributions</h2>
+<h3 id="that-have-led-to-the-deep-learning-revolution">that have led to the Deep Learning revolution</h3>
+<p>(besides <strong>data</strong> a democratization of computational resources)</p>
 <ul>
 <li><p>Automatic Differentiation</p></li>
 <li><p>Stochastic Gradient Descent</p></li>
@@ -356,19 +351,28 @@ Roi Naveiro (CUNEF University)
 <ul>
 <li>MLP</li>
 <li>CNN, RNN</li>
-<li>Attention Mechanism</li>
+<li>Transformers (Attention)</li>
 </ul></li>
 </ul>
 </section>
 <section id="transformers" class="slide level2">
 <h2>Transformers</h2>
 <blockquote>
-<p>“The transformer model has been proven to be superior in quality for many sequence-to-sequence tasks while being more parallelizable. The transformer model follows the encoder-decoder architecture using self-attention mechanisms. The self-attention mechanism allows the transformer to weigh the importance of other words in the sentence when encoding or decoding a particular word.”</p>
+<p>“The transformer model has been shown to be more efficient than RNNs and LSTMs for sequence modeling tasks, and has been used in a variety of applications, including language modeling, machine translation, and image generation.”</p>
 </blockquote>
-<p>— Source: <a href="https://developers.google.com/machine-learning/glossary#transformer_model">Google Developers</a></p>
+<ul>
+<li>Source: <a href="https://developers.google.com/machine-learning/glossary#transformer_model">Google Developers</a></li>
+</ul>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
+<ul>
+<li><p>Feynmans’ quote: “What I cannot create, I do not understand.”</p></li>
+<li><p>If he was alive: “What I cannot code, I do not understand.”</p></li>
+<li><p>Goal: understand inner workings of transformers (trying to code them).</p></li>
+<li><p><span style="background-color: yellow;"><strong>[Code Pointer *: example.py]</strong></span></p></li>
+<li><p><a href="https://github.com/llms-cunef-icmat-rg2024/session2">Code available here</a></p></li>
+</ul>
 </section>
 <section id="notation" class="slide level2">
 <h2>Notation</h2>
@@ -393,8 +397,8 @@ Roi Naveiro (CUNEF University)
 <ul>
 <li><p><span class="math inline">\(\boldsymbol{x}_n \in V^*\)</span> for <span class="math inline">\(n = 1, \dots, N_{\text{data}}\)</span> be a dataset of sequences</p></li>
 <li><p>Assumed to be and i.i.d. sample from a distribution <span class="math inline">\(P\)</span> over <span class="math inline">\(V^*\)</span></p></li>
-<li><p><strong>Goal</strong>: Learn an estimator <span class="math inline">\(\hat{P}\)</span> of <span class="math inline">\(P(\boldsymbol{x})\)</span>.</p></li>
-<li><p>Usually decomposed: <span class="math inline">\(\hat{P} = \hat{P}_{\theta}(x[1]) \cdot \hat{P}_{\theta}(x[2] | x[1]) \cdot \dots \cdot \hat{P}_{\theta}(x[\ell] | x[1:\ell-1])\)</span></p></li>
+<li><p><strong>Goal</strong>: Learn an estimator <span class="math inline">\(\widehat{P}\)</span> of <span class="math inline">\(P(\boldsymbol{x})\)</span>.</p></li>
+<li><p>Usually decomposed: <span class="math inline">\(\widehat{P} = \widehat{P}_{\theta}(x[1]) \cdot \widehat{P}_{\theta}(x[2] | x[1]) \cdot \dots \cdot \widehat{P}_{\theta}(x[\ell] | x[1:\ell-1])\)</span></p></li>
 <li><p><strong>Goal</strong>: learn distribution over single token given the preceding tokens.</p></li>
 <li><p>e.g.&nbsp;language modeling</p></li>
 </ul>
@@ -403,7 +407,7 @@ Roi Naveiro (CUNEF University)
 <h2>Transformers Tasks - Sequence-to-Sequence Prediction</h2>
 <ul>
 <li><p><span class="math inline">\((\boldsymbol{x}_n, \boldsymbol{z}_n) \sim P\)</span> with <span class="math inline">\(P\)</span> a distribution over <span class="math inline">\(V^* \times V^*\)</span>.</p></li>
-<li><p><strong>Goal</strong>: Learn an estimator <span class="math inline">\(\hat{P}\)</span> of <span class="math inline">\(P(\boldsymbol{z} | \boldsymbol{x})\)</span>.</p></li>
+<li><p><strong>Goal</strong>: Learn an estimator <span class="math inline">\(\widehat{P}\)</span> of <span class="math inline">\(P(\boldsymbol{z} | \boldsymbol{x})\)</span>.</p></li>
 <li><p>Also decomposed using the chain rule of probability.</p></li>
 <li><p>e.g.&nbsp;machine translation</p></li>
 </ul>
@@ -487,7 +491,7 @@ Roi Naveiro (CUNEF University)
 </section>
 <section id="tokenization---word-level-1" class="slide level2">
 <h2>Tokenization - Word-level</h2>
-<p><span style="background-color: yellow;"><strong>[Code Pointer 1]</strong></span></p>
+<p><span style="background-color: yellow;"><strong>[Code Pointer 1: main.ipynb]</strong></span></p>
 </section>
 <section id="architectural-components" class="slide level2">
 <h2>Architectural Components</h2>
@@ -506,7 +510,6 @@ Roi Naveiro (CUNEF University)
 <li><p>Sequence of tokens are matrices of size <span class="math inline">\(D \times N\)</span>.</p></li>
 <li><p>Embeddings can be fixed or learned. Parameters are <span class="math inline">\(\boldsymbol{W_e} \in \mathbb{R}^{D \times N_V}\)</span>.</p></li>
 </ul>
-<p><span style="background-color: yellow;"><strong>[Code Pointer 2]</strong></span></p>
 </section>
 <section id="positional-embedding" class="slide level2">
 <h2>Positional Embedding</h2>
@@ -527,7 +530,7 @@ Roi Naveiro (CUNEF University)
 </section>
 <section id="final-input-to-the-transformer-block-1" class="slide level2">
 <h2>Final input to the Transformer Block</h2>
-<p><span style="background-color: yellow;"><strong>[Code Pointer 3]</strong></span></p>
+<p><span style="background-color: yellow;"><strong>[Code Pointer 2: transformer.py]</strong></span></p>
 </section>
 <section id="transformer-block" class="slide level2">
 <h2>Transformer Block</h2>
@@ -637,6 +640,11 @@ A_h^{(m)} = \text{softmax} \left( (\boldsymbol{q}_{h,n}^{(m)}) \cdot (\boldsymbo
 </ul>
 <p><img data-src="transformers_files/extracted_from_page_5_image_1.png" class="absolute" style="width: 65%; "></p>
 </section>
+<section id="self-attention-across-the-sequence-9" class="slide level2">
+<h2>1. Self-Attention across the sequence</h2>
+<h3 id="multi-head-self-attention-2">Multi-Head Self-Attention</h3>
+<p><span style="background-color: yellow;"><strong>[Code Pointer 3: modules.py]</strong></span></p>
+</section>
 <section id="multi-layer-perceptron-across-features" class="slide level2">
 <h2>2. Multi-layer perceptron across features</h2>
 <p>This stage operates across the features, refining the representation using a non linear transformation.</p>
@@ -670,7 +678,7 @@ A_h^{(m)} = \text{softmax} \left( (\boldsymbol{q}_{h,n}^{(m)}) \cdot (\boldsymbo
 <h2>Transformer Block: all together</h2>
 <h3 id="layer-normalization">Layer Normalization</h3>
 <ul>
-<li><p>Also stabilizes learning.</p></li>
+<li><p>Also stabilizes learning (helps with vanishing/exploding gradients).</p></li>
 <li><p>Many choices, e.g.&nbsp;LayerNorm normalizes each token independently.</p></li>
 </ul>
 <p><span class="math display">\[
@@ -684,32 +692,83 @@ LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - 
 <h2>Transformer Block: all together</h2>
 <p><img data-src="transformers_files/block.png" class="absolute" style="width: 65%; "></p>
 </section>
+<section id="transformer-block-all-together-4" class="slide level2">
+<h2>Transformer Block: all together</h2>
+<p><span style="background-color: yellow;"><strong>[Code Pointer 4: modules.py]</strong></span></p>
+</section>
+<section id="output-layer" class="slide level2">
+<h2>Output Layer</h2>
+<ul>
+<li><p>Depending on the task.</p></li>
+<li><p>For example, for classification, we pass the transformer output <span class="math inline">\(X^{(M)}\)</span> through a linear layer followed by a softmax over the classes. <span style="background-color: yellow;"><strong>[Code Pointer 5: transformer.py]</strong></span></p></li>
+<li><p>In auto-regressive models, the goal is to predict the next token in the sequence given the previous ones: <span class="math inline">\(p(x[n] | x[1:n-1])\)</span>. For this, we need two modifications.</p></li>
+</ul>
+</section>
+<section id="tranformers---auto-regressive-models" class="slide level2">
+<h2>Tranformers - Auto-regressive models</h2>
+<ul>
+<li><p>Auto-regressive predictions is expensive: generating output for a sequence of length <span class="math inline">\(N\)</span> requires <span class="math inline">\(N\)</span> calls to the transformer.</p></li>
+<li><p>We would like that if <span class="math inline">\(X^{(n)}\)</span> is the output of the transformer for tokens <span class="math inline">\(x[1:n]\)</span>, and <span class="math inline">\(X^{(n+1)}\)</span> is the output for tokens <span class="math inline">\(x[1:n+1]\)</span>, then <span class="math inline">\(X^{(n)} = X^{(n+1)}_{1:n}\)</span>.</p></li>
+<li><p>But every token attends to all the other tokens in the sequence, so this is not the case.</p></li>
+<li><p>Solution: mask attention matrix so it is upper triangular: <span class="math inline">\(A_{n'n} = 0\)</span> for <span class="math inline">\(n' &gt; n\)</span>. Then, representation of each token only depends on the previous tokens.</p></li>
+</ul>
+</section>
+<section id="tranformers---auto-regressive-models-1" class="slide level2">
+<h2>Tranformers - Auto-regressive models</h2>
+<ol type="1">
+<li><p>We apply masked transformer blocks <span class="math inline">\(M\)</span> times to the input sequence.</p></li>
+<li><p>We take the representation at position <span class="math inline">\(n-1\)</span> (<span class="math inline">\(\boldsymbol{x}_{n-1}^{(M)}\)</span>) and pass it through a linear layer followed by a softmax to get the distribution over the next token.</p></li>
+</ol>
+<p><span class="math display">\[
+p(x[n] = w | x[1:n-1]) = p(x[n] | \boldsymbol{x}_{n-1}^{(M)}) = \frac{\exp \boldsymbol{g}_w^\top \boldsymbol{x}_{n-1}^{(M)}}{\sum_{w' \in V} \exp \boldsymbol{g}_{w'}^\top \boldsymbol{x}_{n-1}^{(M)}}
+\]</span></p>
+</section>
 <section id="loss-function-and-training" class="slide level2">
 <h2>Loss Function and Training</h2>
+<p><span style="background-color: yellow;"><strong>[Code Pointer 6: main.ipynb]</strong></span></p>
 <ul>
-<li><p>The loss function is the negative log-likelihood of the data plus a regularization term.</p></li>
+<li><p>The loss function depends on the task, but is usually based on the negative log-likelihood plus a regularization term.</p></li>
 <li><p>Training is done using stochastic gradient descent or some of its variants such as Adam, RMSProp, etc.</p></li>
 <li><p>This is done almost automatically using automatic differentiation in any deep learning framework, such as PyTorch or TensorFlow.</p></li>
 </ul>
 </section>
-<section id="conclusion" class="slide level2">
-<h2>Conclusion</h2>
+<section id="thoughts---equivariance" class="slide level2">
+<h2>Thoughts - Equivariance</h2>
 <ul>
-<li><p>Permutation Equivariance</p></li>
-<li><p>Positional Encoding: The transformer model does not have any built-in understanding of the order of the words in a sequence. To give the model some information about the relative or absolute position of the words in the sequence, we add positional encoding to the input embeddings.</p></li>
-<li><p>Residual connections mitigate the vanishing gradient problem. The intuition is that if the gradient is too small, we can just add the input to the output and the gradient will be larger.</p></li>
-<li><p>Layer normalization in embedding dimension: Layer normalization is a technique to normalize the inputs of a layer in such a way that the mean is 0 and the variance is 1. This helps to stabilize the training of the model.</p>
+<li><p>Without positional encoding, transformer representation of a sequence is permutation equivariant.</p></li>
+<li><p>Equivariance to permutations is not always desirable. The solution is extremely simple: add positional embeddings to token embeddings (positional embeddings can be learned or fixed).</p></li>
+</ul>
+</section>
+<section id="thoughts---transformers-as-gnns" class="slide level2">
+<h2>Thoughts - Transformers as GNNs</h2>
 <ul>
-<li><p>Stability: Layer normalization stabilizes the learning process by normalizing the inputs to each layer to have a mean of 0 and a variance of 1. This reduces the chance of the values either vanishing (becoming too small) or exploding (becoming too large), which can cause the model to stop learning.</p></li>
-<li><p>Regularization: Layer normalization also acts as a form of regularization, reducing overfitting. This is because it adds noise to the hidden states during training, which helps the model generalize better to unseen data.</p></li>
-<li><p>Speed: Layer normalization can also make the training process faster, because it allows for higher learning rates and less careful initialization.</p></li>
-</ul></li>
+<li><p>GNNs perform two types of operations: message passing, where each node receives messages from its neighbors and they are aggregated, and node update, where the node updates its representation based on the aggregated messages.</p></li>
+<li><p>Transformers can be viewed as GNNs with a fully connected graph where each node attends to all the other nodes.</p></li>
+<li><p>Sparse attention correspond to GNNs with a sparse connectivity graph.</p></li>
+<li><p>Transformers can use different graphs at different layers!</p></li>
+</ul>
+</section>
+<section id="thoughts---transformers-architectures" class="slide level2">
+<h2>Thoughts - Transformers Architectures</h2>
+<p>Several architectres:</p>
+<ul>
+<li><p>Encoder-decoder, for sequence-to-sequence tasks.</p></li>
+<li><p>Encoder-only, for learning useful representations that can be used for downstream tasks. (BERT).</p></li>
+<li><p>Decoder-only, for text generation tasks (GPT).</p></li>
+</ul>
+</section>
+<section id="further-reading" class="slide level2">
+<h2>Further reading</h2>
+<ul>
+<li><p><a href="https://arxiv.org/abs/2207.09238">“Formal Algorithms for Transformers” by Phuong et. al.</a></p></li>
+<li><p><a href="https://arxiv.org/pdf/2304.10557">“An introduction to transformers” by Richard Turner</a></p></li>
+<li><p><a href="https://arxiv.org/abs/1706.03762">“Attention Is All You Need” by Vaswani et al.</a></p></li>
+<li><p><a href="https://osanseviero.github.io/hackerllama/blog/posts/random_transformer/">A softer software oriented intro available</a></p></li>
+<li><p><a href="https://peterbloem.nl/blog/transformers">Step-by-ste implementation</a></p></li>
 </ul>
 
-<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
-</div>
 </div>
 </section>
     </div>
@@ -739,6 +798,7 @@ LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - 
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': true,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1000,9 +1060,10 @@ LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - 
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1012,17 +1073,8 @@ LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - 
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

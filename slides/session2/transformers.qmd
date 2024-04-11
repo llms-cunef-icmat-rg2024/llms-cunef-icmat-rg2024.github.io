@@ -13,12 +13,10 @@ resources:
   - demo.pdf
 ---
 
-## Introduction
-
-* Transformers are a type of neural network architecture that has become the state-of-the-art for many natural language processing tasks.
-
 
 ## Key Methodological Contributions
+### that have led to the Deep Learning revolution
+(besides **data** a democratization of computational resources)
 
 * Automatic Differentiation
 
@@ -27,16 +25,26 @@ resources:
 * Architectures 
   * MLP
   * CNN, RNN
-  * Attention Mechanism
+  * Transformers (Attention)
 
 ## Transformers
 
-> "The transformer model has been proven to be superior in quality for many sequence-to-sequence tasks while being more parallelizable. The transformer model follows the encoder-decoder architecture using self-attention mechanisms. The self-attention mechanism allows the transformer to weigh the importance of other words in the sentence when encoding or decoding a particular word."
+> "The transformer model has been shown to be more efficient than RNNs and LSTMs for sequence modeling tasks, and has been used in a variety of applications, including language modeling, machine translation, and image generation."
 
-— Source: [Google Developers](https://developers.google.com/machine-learning/glossary#transformer_model)
+- Source: [Google Developers](https://developers.google.com/machine-learning/glossary#transformer_model)
 
 
 ## Overview
+
+* Feynmans' quote: "What I cannot create, I do not understand."
+
+* If he was alive: "What I cannot code, I do not understand."
+
+* Goal: understand inner workings of transformers (trying to code them).
+
+* <span style="background-color: yellow;">**[Code Pointer *: example.py]**</span>
+
+* [Code available here](https://github.com/llms-cunef-icmat-rg2024/session2)
 
 ## Notation
 
@@ -64,9 +72,9 @@ resources:
 
 * Assumed to be and i.i.d. sample from a distribution $P$ over $V^*$
 
-* **Goal**: Learn an estimator $\hat{P}$ of $P(\boldsymbol{x})$.
+* **Goal**: Learn an estimator $\widehat{P}$ of $P(\boldsymbol{x})$.
 
-* Usually decomposed: $\hat{P} = \hat{P}_{\theta}(x[1]) \cdot \hat{P}_{\theta}(x[2] | x[1]) \cdot \dots \cdot \hat{P}_{\theta}(x[\ell] | x[1:\ell-1])$
+* Usually decomposed: $\widehat{P} = \widehat{P}_{\theta}(x[1]) \cdot \widehat{P}_{\theta}(x[2] | x[1]) \cdot \dots \cdot \widehat{P}_{\theta}(x[\ell] | x[1:\ell-1])$
 
 * **Goal**: learn distribution over single token given the preceding tokens.
 
@@ -76,7 +84,7 @@ resources:
 
 * $(\boldsymbol{x}_n, \boldsymbol{z}_n) \sim P$ with $P$ a distribution over $V^* \times V^*$.
 
-* **Goal**: Learn an estimator $\hat{P}$ of $P(\boldsymbol{z} | \boldsymbol{x})$.
+* **Goal**: Learn an estimator $\widehat{P}$ of $P(\boldsymbol{z} | \boldsymbol{x})$.
 
 * Also decomposed using the chain rule of probability.
 
@@ -155,7 +163,7 @@ resources:
 
 ## Tokenization - Word-level
 
-<span style="background-color: yellow;">**[Code Pointer 1]**</span>
+<span style="background-color: yellow;">**[Code Pointer 1: main.ipynb]**</span>
 
 ## Architectural Components
 
@@ -174,7 +182,6 @@ resources:
 
 * Embeddings can be fixed or learned. Parameters are $\boldsymbol{W_e} \in \mathbb{R}^{D \times N_V}$.
 
-<span style="background-color: yellow;">**[Code Pointer 2]**</span>
 
 ## Positional Embedding
 
@@ -195,7 +202,7 @@ $$
 
 ## Final input to the Transformer Block
 
-<span style="background-color: yellow;">**[Code Pointer 3]**</span>
+<span style="background-color: yellow;">**[Code Pointer 2: transformer.py]**</span>
 
 ## Transformer Block
 
@@ -311,8 +318,11 @@ $$
 
 ![](transformers_files/extracted_from_page_5_image_1.png){.absolute width=65%}
 
-## 2. Multi-layer perceptron across features
+## 1. Self-Attention across the sequence
+### Multi-Head Self-Attention
+<span style="background-color: yellow;">**[Code Pointer 3: modules.py]**</span>
 
+## 2. Multi-layer perceptron across features
 
 This stage operates across the features, refining the representation using a non linear transformation.
 
@@ -346,7 +356,7 @@ Rather than stacking MHSA and MLP directly, we use two transformations that prod
 ## Transformer Block: all together
 ### Layer Normalization
 
-* Also stabilizes learning.
+* Also stabilizes learning (helps with vanishing/exploding gradients).
 
 * Many choices, e.g. LayerNorm normalizes each token independently.
 
@@ -360,27 +370,83 @@ $$
 
 ![](transformers_files/block.png){.absolute width=65%}
 
+## Transformer Block: all together
+<span style="background-color: yellow;">**[Code Pointer 4: modules.py]**</span>
+
+## Output Layer
+
+* Depending on the task.
+
+* For example, for classification, we pass the transformer output $X^{(M)}$ through a linear layer followed by a softmax over the classes.
+<span style="background-color: yellow;">**[Code Pointer 5: transformer.py]**</span>
+
+* In auto-regressive models, the goal is to predict the next token in the sequence given the previous ones: $p(x[n] | x[1:n-1])$. For this, we need two modifications.
+
+## Tranformers - Auto-regressive models
+
+* Auto-regressive predictions is expensive: generating output for a sequence of length $N$ requires $N$ calls to the transformer.
+
+* We would like that if $X^{(n)}$ is the output of the transformer for tokens $x[1:n]$, and $X^{(n+1)}$ is the output for tokens $x[1:n+1]$, then $X^{(n)} = X^{(n+1)}_{1:n}$.
+
+* But every token attends to all the other tokens in the sequence, so this is not the case.
+
+* Solution: mask attention matrix so it is upper triangular: $A_{n'n} = 0$ for $n' > n$. Then, representation of each token only depends on the previous tokens.
+
+## Tranformers - Auto-regressive models
+
+1. We apply masked transformer blocks $M$ times to the input sequence.
+
+2. We take the representation at position $n-1$ ($\boldsymbol{x}_{n-1}^{(M)}$) and pass it through a linear layer followed by a softmax to get the distribution over the next token.
+
+$$
+p(x[n] = w | x[1:n-1]) = p(x[n] | \boldsymbol{x}_{n-1}^{(M)}) = \frac{\exp \boldsymbol{g}_w^\top \boldsymbol{x}_{n-1}^{(M)}}{\sum_{w' \in V} \exp \boldsymbol{g}_{w'}^\top \boldsymbol{x}_{n-1}^{(M)}}
+$$
+
 ## Loss Function and Training
 
-* The loss function is the negative log-likelihood of the data plus a regularization term.
+<span style="background-color: yellow;">**[Code Pointer 6: main.ipynb]**</span>
+
+* The loss function depends on the task, but is usually based on the negative log-likelihood plus a regularization term.
 
 * Training is done using stochastic gradient descent or some of its variants such as Adam, RMSProp, etc.
 
 * This is done almost automatically using automatic differentiation in any deep learning framework, such as PyTorch or TensorFlow.
 
-## Conclusion
+## Thoughts - Equivariance
 
-* Permutation Equivariance 
+* Without positional encoding, transformer representation of a sequence is permutation equivariant.
 
-* Positional Encoding: The transformer model does not have any built-in understanding of the order of the words in a sequence. To give the model some information about the relative or absolute position of the words in the sequence, we add positional encoding to the input embeddings.
+* Equivariance to permutations is not always desirable. The solution is extremely simple: add positional embeddings to token embeddings (positional embeddings can be learned or fixed).
 
-*  Residual connections mitigate the vanishing gradient problem. The intuition is that if the gradient is too small, we can just add the input to the output and the gradient will be larger.
+## Thoughts - Transformers as GNNs
 
-* Layer normalization in embedding dimension: Layer normalization is a technique to normalize the inputs of a layer in such a way that the mean is 0 and the variance is 1. This helps to stabilize the training of the model.
+* GNNs perform two types of operations: message passing, where each node receives messages from its neighbors and they are aggregated, and node update, where the node updates its representation based on the aggregated messages.
 
-  * Stability: Layer normalization stabilizes the learning process by normalizing the inputs to each layer to have a mean of 0 and a variance of 1. This reduces the chance of the values either vanishing (becoming too small) or exploding (becoming too large), which can cause the model to stop learning.
+* Transformers can be viewed as GNNs with a fully connected graph where each node attends to all the other nodes.
 
-  * Regularization: Layer normalization also acts as a form of regularization, reducing overfitting. This is because it adds noise to the hidden states during training, which helps the model generalize better to unseen data.
+* Sparse attention correspond to GNNs with a sparse connectivity graph.
 
-  * Speed: Layer normalization can also make the training process faster, because it allows for higher learning rates and less careful initialization.
+* Transformers can use different graphs at different layers!
+
+## Thoughts - Transformers Architectures
+
+Several architectres: 
+
+* Encoder-decoder, for sequence-to-sequence tasks.
+
+* Encoder-only, for learning useful representations that can be used for downstream tasks. (BERT).
+
+* Decoder-only, for text generation tasks (GPT).
+
+## Further reading
+
+* ["Formal Algorithms for Transformers" by Phuong et. al.](https://arxiv.org/abs/2207.09238)
+
+* ["An introduction to transformers" by Richard Turner](https://arxiv.org/pdf/2304.10557)
+
+* ["Attention Is All You Need" by Vaswani et al.](https://arxiv.org/abs/1706.03762)
+
+* [A softer software oriented intro available](https://osanseviero.github.io/hackerllama/blog/posts/random_transformer/)
+
+* [Step-by-ste implementation](https://peterbloem.nl/blog/transformers)
 

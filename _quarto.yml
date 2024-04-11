@@ -13,6 +13,8 @@ website:
         text: Home
       - file: session1.qmd
         text: "Session 1"
+      - file: session2.qmd
+        text: "Session 2"
 
     #right:
     #  - icon: bar-chart-fill

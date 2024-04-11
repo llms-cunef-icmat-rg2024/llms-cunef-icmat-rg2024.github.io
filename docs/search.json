@@ -60,7 +60,7 @@
     "href": "slides/session2/transformers.html#transformers",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformers",
-    "text": "Transformers\n\n“The transformer model has been proven to be superior in quality for many sequence-to-sequence tasks while being more parallelizable. The transformer model follows the encoder-decoder architecture using self-attention mechanisms. The self-attention mechanism allows the transformer to weigh the importance of other words in the sentence when encoding or decoding a particular word.”\n\n— Source: Google Developers"
+    "text": "Transformers\n\n“The transformer model has been shown to be more efficient than RNNs and LSTMs for sequence modeling tasks, and has been used in a variety of applications, including language modeling, machine translation, and image generation.”\n\n\nSource: Google Developers"
   },
   {
     "objectID": "slides/session2/transformers.html#things-to-understand",
@@ -88,14 +88,14 @@
     "href": "slides/session2/transformers.html#key-methodological-contributions",
     "title": "Formal Algorithms for Transformers",
     "section": "Key Methodological Contributions",
-    "text": "Key Methodological Contributions\n\nAutomatic Differentiation\nStochastic Gradient Descent\nArchitectures\n\nMLP\nCNN, RNN\nAttention Mechanism"
+    "text": "Key Methodological Contributions\nthat have led to the Deep Learning revolution\n(besides data a democratization of computational resources)\n\nAutomatic Differentiation\nStochastic Gradient Descent\nArchitectures\n\nMLP\nCNN, RNN\nTransformers (Attention)"
   },
   {
     "objectID": "slides/session2/transformers.html#overview",
     "href": "slides/session2/transformers.html#overview",
     "title": "Formal Algorithms for Transformers",
     "section": "Overview",
-    "text": "Overview"
+    "text": "Overview\n\nFeynmans’ quote: “What I cannot create, I do not understand.”\nIf he was alive: “What I cannot code, I do not understand.”\nGoal: understand inner workings of transformers (trying to code them).\n[Code Pointer *: example.py]\nCode available here"
   },
   {
     "objectID": "slides/session2/transformers.html#notation",
@@ -123,7 +123,7 @@
     "href": "slides/session2/transformers.html#transformers-tasks---sequence-modeling",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformers Tasks - Sequence Modeling",
-    "text": "Transformers Tasks - Sequence Modeling\n\n\\(\\boldsymbol{x}_n \\in V^*\\) for \\(n = 1, \\dots, N_{\\text{data}}\\) be a dataset of sequences\nAssumed to be and i.i.d. sample from a distribution \\(P\\) over \\(V^*\\)\nGoal: Learn an estimator \\(\\hat{P}\\) of \\(P(\\boldsymbol{x})\\).\nUsually decomposed: \\(\\hat{P} = \\hat{P}_{\\theta}(x[1]) \\cdot \\hat{P}_{\\theta}(x[2] | x[1]) \\cdot \\dots \\cdot \\hat{P}_{\\theta}(x[\\ell] | x[1:\\ell-1])\\)\nGoal: learn distribution over single token given the preceding tokens.\ne.g. language modeling"
+    "text": "Transformers Tasks - Sequence Modeling\n\n\\(\\boldsymbol{x}_n \\in V^*\\) for \\(n = 1, \\dots, N_{\\text{data}}\\) be a dataset of sequences\nAssumed to be and i.i.d. sample from a distribution \\(P\\) over \\(V^*\\)\nGoal: Learn an estimator \\(\\widehat{P}\\) of \\(P(\\boldsymbol{x})\\).\nUsually decomposed: \\(\\widehat{P} = \\widehat{P}_{\\theta}(x[1]) \\cdot \\widehat{P}_{\\theta}(x[2] | x[1]) \\cdot \\dots \\cdot \\widehat{P}_{\\theta}(x[\\ell] | x[1:\\ell-1])\\)\nGoal: learn distribution over single token given the preceding tokens.\ne.g. language modeling"
   },
   {
     "objectID": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-modeling",
@@ -151,7 +151,7 @@
     "href": "slides/session2/transformers.html#token-embedding",
     "title": "Formal Algorithms for Transformers",
     "section": "Token Embedding",
-    "text": "Token Embedding\n\nFirst task is to convert each sequence into a matrix of token embeddings.\nToken embeddings map vocabulary elements into column vectors in \\(\\mathbb{R}^{D}\\).\nSequence of tokens are matrices of size \\(D \\times N\\).\nEmbeddings can be fixed or learned. Parameters are \\(\\boldsymbol{W_e} \\in \\mathbb{R}^{D \\times N_V}\\).\n\n[Code Pointer 2]"
+    "text": "Token Embedding\n\nFirst task is to convert each sequence into a matrix of token embeddings.\nToken embeddings map vocabulary elements into column vectors in \\(\\mathbb{R}^{D}\\).\nSequence of tokens are matrices of size \\(D \\times N\\).\nEmbeddings can be fixed or learned. Parameters are \\(\\boldsymbol{W_e} \\in \\mathbb{R}^{D \\times N_V}\\)."
   },
   {
     "objectID": "slides/session2/transformers.html#positional-embedding",
@@ -235,7 +235,7 @@
     "href": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-prediction",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformers Tasks - Sequence-to-Sequence Prediction",
-    "text": "Transformers Tasks - Sequence-to-Sequence Prediction\n\n\\((\\boldsymbol{x}_n, \\boldsymbol{z}_n) \\sim P\\) with \\(P\\) a distribution over \\(V^* \\times V^*\\).\nGoal: Learn an estimator \\(\\hat{P}\\) of \\(P(\\boldsymbol{z} | \\boldsymbol{x})\\).\nAlso decomposed using the chain rule of probability.\ne.g. machine translation"
+    "text": "Transformers Tasks - Sequence-to-Sequence Prediction\n\n\\((\\boldsymbol{x}_n, \\boldsymbol{z}_n) \\sim P\\) with \\(P\\) a distribution over \\(V^* \\times V^*\\).\nGoal: Learn an estimator \\(\\widehat{P}\\) of \\(P(\\boldsymbol{z} | \\boldsymbol{x})\\).\nAlso decomposed using the chain rule of probability.\ne.g. machine translation"
   },
   {
     "objectID": "slides/session2/transformers.html#tokenization-1",
@@ -263,7 +263,7 @@
     "href": "slides/session2/transformers.html#tokenization---word-level-1",
     "title": "Formal Algorithms for Transformers",
     "section": "Tokenization - Word-level",
-    "text": "Tokenization - Word-level\n[Code Pointer 1]"
+    "text": "Tokenization - Word-level\n[Code Pointer 1: main.ipynb]"
   },
   {
     "objectID": "slides/session2/transformers.html#token-embedding-1",
@@ -291,7 +291,7 @@
     "href": "slides/session2/transformers.html#final-input-to-the-transformer-block-1",
     "title": "Formal Algorithms for Transformers",
     "section": "Final input to the Transformer Block",
-    "text": "Final input to the Transformer Block\n[Code Pointer 3]"
+    "text": "Final input to the Transformer Block\n[Code Pointer 2: transformer.py]"
   },
   {
     "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence",
@@ -445,7 +445,7 @@
     "href": "slides/session2/transformers.html#transformer-block-all-together-2",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block: all together",
-    "text": "Transformer Block: all together\nLayer Normalization\n\nAlso stabilizes learning.\nMany choices, e.g. LayerNorm normalizes each token independently.\n\n\\[\nLayerNorm(X)_{d,n} = \\frac{1}{\\sqrt{\\text{var}(\\boldsymbol{x}_{n})}} (x_{d,n} - \\text{mean}(\\boldsymbol{x}_{n})) \\gamma_d + \\beta_d\n\\]\n\nThis prevents feature representations from blowing up in magnitude."
+    "text": "Transformer Block: all together\nLayer Normalization\n\nAlso stabilizes learning (helps with vanishing/exploding gradients).\nMany choices, e.g. LayerNorm normalizes each token independently.\n\n\\[\nLayerNorm(X)_{d,n} = \\frac{1}{\\sqrt{\\text{var}(\\boldsymbol{x}_{n})}} (x_{d,n} - \\text{mean}(\\boldsymbol{x}_{n})) \\gamma_d + \\beta_d\n\\]\n\nThis prevents feature representations from blowing up in magnitude."
   },
   {
     "objectID": "slides/session2/transformers.html#transformer-block-all-together-3",
@@ -459,7 +459,7 @@
     "href": "slides/session2/transformers.html#loss-function-and-training",
     "title": "Formal Algorithms for Transformers",
     "section": "Loss Function and Training",
-    "text": "Loss Function and Training\n\nThe loss function is the negative log-likelihood of the data plus a regularization term.\nTraining is done using stochastic gradient descent or some of its variants such as Adam, RMSProp, etc.\nThis is done almost automatically using automatic differentiation in any deep learning framework, such as PyTorch or TensorFlow."
+    "text": "Loss Function and Training\n[Code Pointer 6: main.ipynb]\n\nThe loss function depends on the task, but is usually based on the negative log-likelihood plus a regularization term.\nTraining is done using stochastic gradient descent or some of its variants such as Adam, RMSProp, etc.\nThis is done almost automatically using automatic differentiation in any deep learning framework, such as PyTorch or TensorFlow."
   },
   {
     "objectID": "slides/session2/transformers.html#conclusion",
@@ -474,5 +474,131 @@
     "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
     "section": "Session recording",
     "text": "Session recording\nYou can watch the session here."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#further-reading",
+    "href": "slides/session2/transformers.html#further-reading",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Further reading",
+    "text": "Further reading\n\n“Formal Algorithms for Transformers” by Phuong et. al.\n“An introduction to transformers” by Richard Turner\n“Attention Is All You Need” by Vaswani et al.\nA softer software oriented intro available\nStep-by-ste implementation"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#thoughts---equivariance",
+    "href": "slides/session2/transformers.html#thoughts---equivariance",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Thoughts - Equivariance",
+    "text": "Thoughts - Equivariance\n\nWithout positional encoding, transformer representation of a sequence is permutation equivariant.\nEquivariance to permutations is not always desirable. The solution is extremely simple: add positional embeddings to token embeddings (positional embeddings can be learned or fixed)."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#thoughts---transformers-as-gnns",
+    "href": "slides/session2/transformers.html#thoughts---transformers-as-gnns",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Thoughts - Transformers as GNNs",
+    "text": "Thoughts - Transformers as GNNs\n\nGNNs perform two types of operations: message passing, where each node receives messages from its neighbors and they are aggregated, and node update, where the node updates its representation based on the aggregated messages.\nTransformers can be viewed as GNNs with a fully connected graph where each node attends to all the other nodes.\nSparse attention correspond to GNNs with a sparse connectivity graph.\nTransformers can use different graphs at different layers!"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#output-layer",
+    "href": "slides/session2/transformers.html#output-layer",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Output Layer",
+    "text": "Output Layer\n\nDepending on the task.\nFor example, for classification, we pass the transformer output \\(X^{(M)}\\) through a linear layer followed by a softmax over the classes. [Code Pointer 5: transformer.py]\nIn auto-regressive models, the goal is to predict the next token in the sequence given the previous ones: \\(p(x[n] | x[1:n-1])\\). For this, we need two modifications."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tranformers---auto-regressive-models",
+    "href": "slides/session2/transformers.html#tranformers---auto-regressive-models",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tranformers - Auto-regressive models",
+    "text": "Tranformers - Auto-regressive models\n\nAuto-regressive predictions is expensive: generating output for a sequence of length \\(N\\) requires \\(N\\) calls to the transformer.\nWe would like that if \\(X^{(n)}\\) is the output of the transformer for tokens \\(x[1:n]\\), and \\(X^{(n+1)}\\) is the output for tokens \\(x[1:n+1]\\), then \\(X^{(n)} = X^{(n+1)}_{1:n}\\).\nBut every token attends to all the other tokens in the sequence, so this is not the case.\nSolution: mask attention matrix so it is upper triangular: \\(A_{n'n} = 0\\) for \\(n' &gt; n\\). Then, representation of each token only depends on the previous tokens."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#tranformers---auto-regressive-models-1",
+    "href": "slides/session2/transformers.html#tranformers---auto-regressive-models-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Tranformers - Auto-regressive models",
+    "text": "Tranformers - Auto-regressive models\n\nWe apply masked transformer blocks \\(M\\) times to the input sequence.\nWe take the representation at position \\(n-1\\) (\\(\\boldsymbol{x}_{n-1}^{(M)}\\)) and pass it through a linear layer followed by a softmax to get the distribution over the next token.\n\n\\[\np(x[n] = w | x[1:n-1]) = p(x[n] | \\boldsymbol{x}_{n-1}^{(M)}) = \\frac{\\exp \\boldsymbol{g}_w^\\top \\boldsymbol{x}_{n-1}^{(M)}}{\\sum_{w' \\in V} \\exp \\boldsymbol{g}_{w'}^\\top \\boldsymbol{x}_{n-1}^{(M)}}\n\\]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#thoughts---transformers-architectures",
+    "href": "slides/session2/transformers.html#thoughts---transformers-architectures",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Thoughts - Transformers Architectures",
+    "text": "Thoughts - Transformers Architectures\nSeveral architectres:\n\nEncoder-decoder, for sequence-to-sequence tasks.\nEncoder-only, for learning useful representations that can be used for downstream tasks. (BERT).\nDecoder-only, for text generation tasks (GPT)."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-9",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-9",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n[Code Pointer 3: modules.py]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-all-together-4",
+    "href": "slides/session2/transformers.html#transformer-block-all-together-4",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block: all together",
+    "text": "Transformer Block: all together\n[Code Pointer 4: modules.py]"
+  },
+  {
+    "objectID": "session2.html",
+    "href": "session2.html",
+    "title": "Formal Algorithms for Transformers",
+    "section": "",
+    "text": "Transformers provide the basis to LLMs. Understand their inner workings."
+  },
+  {
+    "objectID": "session2.html#purpose",
+    "href": "session2.html#purpose",
+    "title": "Formal Algorithms for Transformers",
+    "section": "",
+    "text": "Transformers provide the basis to LLMs. Understand their inner workings."
+  },
+  {
+    "objectID": "session2.html#reading-suggestions",
+    "href": "session2.html#reading-suggestions",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Reading suggestions",
+    "text": "Reading suggestions\n\n“Formal Algorithms for Transformers” by Phuong et. al.\n“An introduction to transformers” by Richard Turner\n“Attention Is All You Need” by Vaswani et al.\nA softer software oriented intro available\nStep-by-ste implementation"
+  },
+  {
+    "objectID": "session2.html#date",
+    "href": "session2.html#date",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Date",
+    "text": "Date\nApril 16th at 11.30. @CUNEF"
+  },
+  {
+    "objectID": "session2.html#facilitator",
+    "href": "session2.html#facilitator",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Facilitator",
+    "text": "Facilitator\nRoi Naveiro (CUNEF Universidad)"
+  },
+  {
+    "objectID": "session2.html#discussion-topics",
+    "href": "session2.html#discussion-topics",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Discussion Topics",
+    "text": "Discussion Topics\nImplement or explore a basic transformer model for a text classification task, focusing on the self-attention mechanism. A deep dive into the algorithms that drive transformer models, including attention mechanisms and positional encoding."
+  },
+  {
+    "objectID": "session2.html#session-recording",
+    "href": "session2.html#session-recording",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Session recording",
+    "text": "Session recording\nTBA"
+  },
+  {
+    "objectID": "session2.html#slides",
+    "href": "session2.html#slides",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Slides",
+    "text": "Slides\nAvailable here."
+  },
+  {
+    "objectID": "session2.html#code",
+    "href": "session2.html#code",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Code",
+    "text": "Code\nCode available here"
   }
 ]
