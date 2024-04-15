@@ -14,24 +14,21 @@ resources:
 ---
 
 
-## Key Methodological Contributions
+## Key Methodological Innovations
 ### that have led to the Deep Learning revolution
-(besides **data** a democratization of computational resources)
+**(besides data a democratization of computational resources)**
 
-* Automatic Differentiation
+Most DL algorithms aim at learning a function $f_{\theta}$ that approximates a target function $f$ from a set of input-output pairs $\lbrace (x_i, y_i) \rbrace_{i=1}^N$. This problem is solved by minimizing a loss function $L$ that measures the discrepancy between the predictions of the model and the true values.
 
-* Stochastic Gradient Descent
+## Key Methodological Innovations
+### that have led to the Deep Learning revolution
+**(besides data a democratization of computational resources)**
 
-* Architectures 
-  * MLP
-  * CNN, RNN
-  * Transformers (Attention)
+* Stochastic Gradient Descent **(optimization)**
 
-## Transformers
+* Automatic Differentiation **(optimization)**
 
-> "The transformer model has been shown to be more efficient than RNNs and LSTMs for sequence modeling tasks, and has been used in a variety of applications, including language modeling, machine translation, and image generation."
-
-- Source: [Google Developers](https://developers.google.com/machine-learning/glossary#transformer_model)
+* Architectures **(architecture)**: MLP, CNN, RNN, Transformers (Attention)
 
 
 ## Overview
@@ -42,15 +39,26 @@ resources:
 
 * Goal: understand inner workings of transformers (trying to code them).
 
+* Will not talk about **training** (optimization and gradient computation), but about **architecture**.
+
 * <span style="background-color: yellow;">**[Code Pointer *: example.py]**</span>
 
 * [Code available here](https://github.com/llms-cunef-icmat-rg2024/session2)
+
+## What is a Transformer?
+
+
+* It is a parametric function approximator, $f_{\theta}$, specifically designed to work with sequences represented as matrices.
+
+* $\theta$ are the parameters of the function, that are learned from (lots) training data.
+
+* e.g GPT-3 has 175 billion parameters. 
 
 ## Notation
 
 * Vocabulary: $V$, is a finite set identified with $[N_V] \equiv \lbrace 1, \dots, N_V\rbrace$.
 
-* Letters, words, most commonly subwords.
+* Letters, words, most commonly subwords (tokens).
 
 * Sequence: $\boldsymbol{x} \equiv x[1:l] = x[1] \dots x[N] \in V^*$
 
@@ -58,7 +66,7 @@ resources:
 
 ## Data
 
-* Data is assumed to be independent and identically distributed (i.i.d.).
+* Data is assumed to be set of independent and identically distributed (i.i.d.) sequences.
 
 * e.g. a collection of independent articles
 
@@ -100,9 +108,11 @@ resources:
 
 ## Tokenization
 
-* A transformer will learn a vector represenration of each token in each sequence.
+* **Goal**: learn a vector representation of the sequence, useful for downstream tasks.
 
-* First thing is to break each sequence of vocabulary elements (tokens).
+* A transformer will learn a vector representation of each token in each sequence.
+
+* First thing is to break each sequence into tokens (vocabulary elements).
 
 * Several tokenization strategies. Take this text as an example
 
@@ -117,8 +127,7 @@ resources:
 
 > [L, e, ó, n, , ...] 
 
-* Long sequences.
-
+* Manageable vocabulary but requires longer sequences.
 
 ## Tokenization - Word-level
 
@@ -206,7 +215,9 @@ $$
 
 ## Transformer Block
 
-Transformers generate a new representation of the input sequence by applying a series of transformer blocks.
+* Each sequence corresponds to a matrix $X^{(0)} \in \mathbb{R}^{D \times N}$.	
+
+* Transformers generate a new representation of the input sequence by applying a series of transformer blocks.
 
 $$ 
 X^{(m)} = \text{TransformerBlock}(X^{(m-1)})	
@@ -216,19 +227,19 @@ $$
 
 Block consists of two stages:
 
-1. **Self-Attention across the sequence**: refines the representation of each token by considering the other tokens in the sequence: how much a word in position $i$ depends on words in positions $j$. **[Vertically]**
+**1. Self-Attention across the sequence**: refines the representation of each token by considering the other tokens in the sequence: how much a word in position $i$ depends on words in positions $j$. **[Vertically]**
 
-2. **Multi-layer perceptron across features**: refines the features representation of each token. **[Horizontally]**
+**2. Multi-layer perceptron across features**: refines the features representation of each token independently (without considering the other tokens in the sequence). **[Horizontally]**
 
 
 ## 1. Self-Attention across the sequence
 
-Output of the self-attention mechanism is a matrix of size $D \times N$, call it $Y^{(m)}$. Output is produced aggregating information across the sequence independently for each feature using attention.
+Output of the self-attention mechanism is a matrix of size $D \times N$, call it $Y^{(m)}$. Output is produced aggregating information across the sequence for each feature using attention.
 
 ## 1. Self-Attention across the sequence
 ### Attention
 
-Specifically for the $n$-th feature, the output, denoted by $\boldsymbol{y}^{(m)}_n$, is computed as a weighted average of the input features:
+Specifically for the $n$-th location in the sequence, the output, denoted by $\boldsymbol{y}^{(m)}_n$, is computed as a weighted average of the input features:
 
 $$
 \boldsymbol{y}^{(m)}_n = \sum_{n'=1}^{N} \boldsymbol{x}^{(m-1)}_{n'} \cdot A^{(m)}_{n'n}
@@ -299,6 +310,9 @@ $$
 
 * There is just one attention matrix $A^{(m)}$. It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.
 
+## 1. Self-Attention across the sequence
+### Multi-Head Self-Attention 
+
 * Solution: compute multiple attention matrices.
 
 $$
@@ -320,6 +334,9 @@ $$
 
 ## 1. Self-Attention across the sequence
 ### Multi-Head Self-Attention
+
+Usually $K=D/H$ in order to keep the number of parameters independent of the number of heads.
+
 <span style="background-color: yellow;">**[Code Pointer 3: modules.py]**</span>
 
 ## 2. Multi-layer perceptron across features
@@ -343,13 +360,16 @@ Rather than stacking MHSA and MLP directly, we use two transformations that prod
 ## Transformer Block: all together
 ### Residual Connection
 
-* Stabilize learning.
-
 * Instead of directly specifying a function $x^{(m)} = f_\theta(x^{(m-1)})$, the idea is to parameterize it as the identity function plus a residual term $x^{(m)} = x^{(m-1)} + \text{res}_\theta(x^{(m-1)})$.
 
 * Modelling differences of representations rather than the representations themselves.
 
 * Works well when function being learned is close to the identity.
+
+* Stabilize learning.
+
+## Transformer Block: all together
+### Residual Connection
 
 * Used after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation.
 
@@ -358,7 +378,7 @@ Rather than stacking MHSA and MLP directly, we use two transformations that prod
 
 * Also stabilizes learning (helps with vanishing/exploding gradients).
 
-* Many choices, e.g. LayerNorm normalizes each token independently.
+* Many choices, e.g. LayerNorm normalizes thre feature representation of each token independently.
 
 $$
 LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - \text{mean}(\boldsymbol{x}_{n})) \gamma_d + \beta_d

@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.319">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Roi Naveiro (CUNEF University)">
   <title>Intro to LLMs - Formal Algorithms for Transformers</title>
@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="styles.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -160,7 +160,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -340,28 +341,20 @@ Roi Naveiro (CUNEF University)
 </div>
 
 </section>
-<section id="key-methodological-contributions" class="slide level2">
-<h2>Key Methodological Contributions</h2>
+<section id="key-methodological-innovations" class="slide level2">
+<h2>Key Methodological Innovations</h2>
 <h3 id="that-have-led-to-the-deep-learning-revolution">that have led to the Deep Learning revolution</h3>
-<p>(besides <strong>data</strong> a democratization of computational resources)</p>
-<ul>
-<li><p>Automatic Differentiation</p></li>
-<li><p>Stochastic Gradient Descent</p></li>
-<li><p>Architectures</p>
-<ul>
-<li>MLP</li>
-<li>CNN, RNN</li>
-<li>Transformers (Attention)</li>
-</ul></li>
-</ul>
+<p><strong>(besides data a democratization of computational resources)</strong></p>
+<p>Most DL algorithms aim at learning a function <span class="math inline">\(f_{\theta}\)</span> that approximates a target function <span class="math inline">\(f\)</span> from a set of input-output pairs <span class="math inline">\(\lbrace (x_i, y_i) \rbrace_{i=1}^N\)</span>. This problem is solved by minimizing a loss function <span class="math inline">\(L\)</span> that measures the discrepancy between the predictions of the model and the true values.</p>
 </section>
-<section id="transformers" class="slide level2">
-<h2>Transformers</h2>
-<blockquote>
-<p>“The transformer model has been shown to be more efficient than RNNs and LSTMs for sequence modeling tasks, and has been used in a variety of applications, including language modeling, machine translation, and image generation.”</p>
-</blockquote>
+<section id="key-methodological-innovations-1" class="slide level2">
+<h2>Key Methodological Innovations</h2>
+<h3 id="that-have-led-to-the-deep-learning-revolution-1">that have led to the Deep Learning revolution</h3>
+<p><strong>(besides data a democratization of computational resources)</strong></p>
 <ul>
-<li>Source: <a href="https://developers.google.com/machine-learning/glossary#transformer_model">Google Developers</a></li>
+<li><p>Stochastic Gradient Descent <strong>(optimization)</strong></p></li>
+<li><p>Automatic Differentiation <strong>(optimization)</strong></p></li>
+<li><p>Architectures <strong>(architecture)</strong>: MLP, CNN, RNN, Transformers (Attention)</p></li>
 </ul>
 </section>
 <section id="overview" class="slide level2">
@@ -370,15 +363,24 @@ Roi Naveiro (CUNEF University)
 <li><p>Feynmans’ quote: “What I cannot create, I do not understand.”</p></li>
 <li><p>If he was alive: “What I cannot code, I do not understand.”</p></li>
 <li><p>Goal: understand inner workings of transformers (trying to code them).</p></li>
+<li><p>Will not talk about <strong>training</strong> (optimization and gradient computation), but about <strong>architecture</strong>.</p></li>
 <li><p><span style="background-color: yellow;"><strong>[Code Pointer *: example.py]</strong></span></p></li>
 <li><p><a href="https://github.com/llms-cunef-icmat-rg2024/session2">Code available here</a></p></li>
+</ul>
+</section>
+<section id="what-is-a-transformer" class="slide level2">
+<h2>What is a Transformer?</h2>
+<ul>
+<li><p>It is a parametric function approximator, <span class="math inline">\(f_{\theta}\)</span>, specifically designed to work with sequences represented as matrices.</p></li>
+<li><p><span class="math inline">\(\theta\)</span> are the parameters of the function, that are learned from (lots) training data.</p></li>
+<li><p>e.g GPT-3 has 175 billion parameters.</p></li>
 </ul>
 </section>
 <section id="notation" class="slide level2">
 <h2>Notation</h2>
 <ul>
 <li><p>Vocabulary: <span class="math inline">\(V\)</span>, is a finite set identified with <span class="math inline">\([N_V] \equiv \lbrace 1, \dots, N_V\rbrace\)</span>.</p></li>
-<li><p>Letters, words, most commonly subwords.</p></li>
+<li><p>Letters, words, most commonly subwords (tokens).</p></li>
 <li><p>Sequence: <span class="math inline">\(\boldsymbol{x} \equiv x[1:l] = x[1] \dots x[N] \in V^*\)</span></p></li>
 <li><p><span class="math inline">\(\ell_{\text{max}}\)</span>: maximum length of a sequence.</p></li>
 </ul>
@@ -386,7 +388,7 @@ Roi Naveiro (CUNEF University)
 <section id="data" class="slide level2">
 <h2>Data</h2>
 <ul>
-<li><p>Data is assumed to be independent and identically distributed (i.i.d.).</p></li>
+<li><p>Data is assumed to be set of independent and identically distributed (i.i.d.) sequences.</p></li>
 <li><p>e.g.&nbsp;a collection of independent articles</p></li>
 <li><p>If length of sequence is greater than <span class="math inline">\(\ell_{\text{max}}\)</span>, then sequence is broken into smaller chunks.</p></li>
 <li><p>Details about the data depend on the task.</p></li>
@@ -423,8 +425,9 @@ Roi Naveiro (CUNEF University)
 <section id="tokenization" class="slide level2">
 <h2>Tokenization</h2>
 <ul>
-<li><p>A transformer will learn a vector represenration of each token in each sequence.</p></li>
-<li><p>First thing is to break each sequence of vocabulary elements (tokens).</p></li>
+<li><p><strong>Goal</strong>: learn a vector representation of the sequence, useful for downstream tasks.</p></li>
+<li><p>A transformer will learn a vector representation of each token in each sequence.</p></li>
+<li><p>First thing is to break each sequence into tokens (vocabulary elements).</p></li>
 <li><p>Several tokenization strategies. Take this text as an example</p></li>
 </ul>
 <blockquote>
@@ -441,7 +444,7 @@ Roi Naveiro (CUNEF University)
 <p>[L, e, ó, n, , …]</p>
 </blockquote>
 <ul>
-<li>Long sequences.</li>
+<li>Manageable vocabulary but requires longer sequences.</li>
 </ul>
 </section>
 <section id="tokenization---word-level" class="slide level2">
@@ -534,7 +537,10 @@ Roi Naveiro (CUNEF University)
 </section>
 <section id="transformer-block" class="slide level2">
 <h2>Transformer Block</h2>
-<p>Transformers generate a new representation of the input sequence by applying a series of transformer blocks.</p>
+<ul>
+<li><p>Each sequence corresponds to a matrix <span class="math inline">\(X^{(0)} \in \mathbb{R}^{D \times N}\)</span>.</p></li>
+<li><p>Transformers generate a new representation of the input sequence by applying a series of transformer blocks.</p></li>
+</ul>
 <p><span class="math display">\[
 X^{(m)} = \text{TransformerBlock}(X^{(m-1)})    
 \]</span></p>
@@ -542,19 +548,17 @@ X^{(m)} = \text{TransformerBlock}(X^{(m-1)})
 <section id="transformer-block-1" class="slide level2">
 <h2>Transformer Block</h2>
 <p>Block consists of two stages:</p>
-<ol type="1">
-<li><p><strong>Self-Attention across the sequence</strong>: refines the representation of each token by considering the other tokens in the sequence: how much a word in position <span class="math inline">\(i\)</span> depends on words in positions <span class="math inline">\(j\)</span>. <strong>[Vertically]</strong></p></li>
-<li><p><strong>Multi-layer perceptron across features</strong>: refines the features representation of each token. <strong>[Horizontally]</strong></p></li>
-</ol>
+<p><strong>1. Self-Attention across the sequence</strong>: refines the representation of each token by considering the other tokens in the sequence: how much a word in position <span class="math inline">\(i\)</span> depends on words in positions <span class="math inline">\(j\)</span>. <strong>[Vertically]</strong></p>
+<p><strong>2. Multi-layer perceptron across features</strong>: refines the features representation of each token independently (without considering the other tokens in the sequence). <strong>[Horizontally]</strong></p>
 </section>
 <section id="self-attention-across-the-sequence" class="slide level2">
 <h2>1. Self-Attention across the sequence</h2>
-<p>Output of the self-attention mechanism is a matrix of size <span class="math inline">\(D \times N\)</span>, call it <span class="math inline">\(Y^{(m)}\)</span>. Output is produced aggregating information across the sequence independently for each feature using attention.</p>
+<p>Output of the self-attention mechanism is a matrix of size <span class="math inline">\(D \times N\)</span>, call it <span class="math inline">\(Y^{(m)}\)</span>. Output is produced aggregating information across the sequence for each feature using attention.</p>
 </section>
 <section id="self-attention-across-the-sequence-1" class="slide level2">
 <h2>1. Self-Attention across the sequence</h2>
 <h3 id="attention">Attention</h3>
-<p>Specifically for the <span class="math inline">\(n\)</span>-th feature, the output, denoted by <span class="math inline">\(\boldsymbol{y}^{(m)}_n\)</span>, is computed as a weighted average of the input features:</p>
+<p>Specifically for the <span class="math inline">\(n\)</span>-th location in the sequence, the output, denoted by <span class="math inline">\(\boldsymbol{y}^{(m)}_n\)</span>, is computed as a weighted average of the input features:</p>
 <p><span class="math display">\[
 \boldsymbol{y}^{(m)}_n = \sum_{n'=1}^{N} \boldsymbol{x}^{(m-1)}_{n'} \cdot A^{(m)}_{n'n}
 \]</span></p>
@@ -621,8 +625,14 @@ A^{(m)} = \text{softmax}(\boldsymbol{x}_n^\top U_{\boldsymbol{k}}^\top U_{\bolds
 <h2>1. Self-Attention across the sequence</h2>
 <h3 id="multi-head-self-attention">Multi-Head Self-Attention</h3>
 <ul>
-<li><p>There is just one attention matrix <span class="math inline">\(A^{(m)}\)</span>. It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.</p></li>
-<li><p>Solution: compute multiple attention matrices.</p></li>
+<li>There is just one attention matrix <span class="math inline">\(A^{(m)}\)</span>. It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.</li>
+</ul>
+</section>
+<section id="self-attention-across-the-sequence-8" class="slide level2">
+<h2>1. Self-Attention across the sequence</h2>
+<h3 id="multi-head-self-attention-1">Multi-Head Self-Attention</h3>
+<ul>
+<li>Solution: compute multiple attention matrices.</li>
 </ul>
 <p><span class="math display">\[
 Y^{(m)} = \sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}  
@@ -632,17 +642,18 @@ Y^{(m)} = \sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}
 A_h^{(m)} = \text{softmax} \left( (\boldsymbol{q}_{h,n}^{(m)}) \cdot (\boldsymbol{k}_{h,n'}^{(m)}) \right)
 \]</span></p>
 </section>
-<section id="self-attention-across-the-sequence-8" class="slide level2">
+<section id="self-attention-across-the-sequence-9" class="slide level2">
 <h2>1. Self-Attention across the sequence</h2>
-<h3 id="multi-head-self-attention-1">Multi-Head Self-Attention</h3>
+<h3 id="multi-head-self-attention-2">Multi-Head Self-Attention</h3>
 <ul>
 <li>The dot product <span class="math inline">\(V_h^{(m)} X^{(m-1)}\)</span> is called the value vector.</li>
 </ul>
 <p><img data-src="transformers_files/extracted_from_page_5_image_1.png" class="absolute" style="width: 65%; "></p>
 </section>
-<section id="self-attention-across-the-sequence-9" class="slide level2">
+<section id="self-attention-across-the-sequence-10" class="slide level2">
 <h2>1. Self-Attention across the sequence</h2>
-<h3 id="multi-head-self-attention-2">Multi-Head Self-Attention</h3>
+<h3 id="multi-head-self-attention-3">Multi-Head Self-Attention</h3>
+<p>Usually <span class="math inline">\(K=D/H\)</span> in order to keep the number of parameters independent of the number of heads.</p>
 <p><span style="background-color: yellow;"><strong>[Code Pointer 3: modules.py]</strong></span></p>
 </section>
 <section id="multi-layer-perceptron-across-features" class="slide level2">
@@ -667,19 +678,25 @@ A_h^{(m)} = \text{softmax} \left( (\boldsymbol{q}_{h,n}^{(m)}) \cdot (\boldsymbo
 <h2>Transformer Block: all together</h2>
 <h3 id="residual-connection">Residual Connection</h3>
 <ul>
-<li><p>Stabilize learning.</p></li>
 <li><p>Instead of directly specifying a function <span class="math inline">\(x^{(m)} = f_\theta(x^{(m-1)})\)</span>, the idea is to parameterize it as the identity function plus a residual term <span class="math inline">\(x^{(m)} = x^{(m-1)} + \text{res}_\theta(x^{(m-1)})\)</span>.</p></li>
 <li><p>Modelling differences of representations rather than the representations themselves.</p></li>
 <li><p>Works well when function being learned is close to the identity.</p></li>
-<li><p>Used after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation.</p></li>
+<li><p>Stabilize learning.</p></li>
 </ul>
 </section>
 <section id="transformer-block-all-together-2" class="slide level2">
 <h2>Transformer Block: all together</h2>
+<h3 id="residual-connection-1">Residual Connection</h3>
+<ul>
+<li>Used after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation.</li>
+</ul>
+</section>
+<section id="transformer-block-all-together-3" class="slide level2">
+<h2>Transformer Block: all together</h2>
 <h3 id="layer-normalization">Layer Normalization</h3>
 <ul>
 <li><p>Also stabilizes learning (helps with vanishing/exploding gradients).</p></li>
-<li><p>Many choices, e.g.&nbsp;LayerNorm normalizes each token independently.</p></li>
+<li><p>Many choices, e.g.&nbsp;LayerNorm normalizes thre feature representation of each token independently.</p></li>
 </ul>
 <p><span class="math display">\[
 LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - \text{mean}(\boldsymbol{x}_{n})) \gamma_d + \beta_d
@@ -688,11 +705,11 @@ LayerNorm(X)_{d,n} = \frac{1}{\sqrt{\text{var}(\boldsymbol{x}_{n})}} (x_{d,n} - 
 <li>This prevents feature representations from blowing up in magnitude.</li>
 </ul>
 </section>
-<section id="transformer-block-all-together-3" class="slide level2">
+<section id="transformer-block-all-together-4" class="slide level2">
 <h2>Transformer Block: all together</h2>
 <p><img data-src="transformers_files/block.png" class="absolute" style="width: 65%; "></p>
 </section>
-<section id="transformer-block-all-together-4" class="slide level2">
+<section id="transformer-block-all-together-5" class="slide level2">
 <h2>Transformer Block: all together</h2>
 <p><span style="background-color: yellow;"><strong>[Code Pointer 4: modules.py]</strong></span></p>
 </section>
@@ -767,8 +784,10 @@ p(x[n] = w | x[1:n-1]) = p(x[n] | \boldsymbol{x}_{n-1}^{(M)}) = \frac{\exp \bold
 <li><p><a href="https://peterbloem.nl/blog/transformers">Step-by-ste implementation</a></p></li>
 </ul>
 
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -798,7 +817,6 @@ p(x[n] = w | x[1:n-1]) = p(x[n] | \boldsymbol{x}_{n-1}^{(M)}) = \frac{\exp \bold
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': true,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1060,10 +1078,9 @@ p(x[n] = w | x[1:n-1]) = p(x[n] | \boldsymbol{x}_{n-1}^{(M)}) = \frac{\exp \bold
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1073,8 +1090,17 @@ p(x[n] = w | x[1:n-1]) = p(x[n] | \boldsymbol{x}_{n-1}^{(M)}) = \frac{\exp \bold
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

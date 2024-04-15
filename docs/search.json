@@ -95,21 +95,21 @@
     "href": "slides/session2/transformers.html#overview",
     "title": "Formal Algorithms for Transformers",
     "section": "Overview",
-    "text": "Overview\n\nFeynmans’ quote: “What I cannot create, I do not understand.”\nIf he was alive: “What I cannot code, I do not understand.”\nGoal: understand inner workings of transformers (trying to code them).\n[Code Pointer *: example.py]\nCode available here"
+    "text": "Overview\n\nFeynmans’ quote: “What I cannot create, I do not understand.”\nIf he was alive: “What I cannot code, I do not understand.”\nGoal: understand inner workings of transformers (trying to code them).\nWill not talk about training (optimization and gradient computation), but about architecture.\n[Code Pointer *: example.py]\nCode available here"
   },
   {
     "objectID": "slides/session2/transformers.html#notation",
     "href": "slides/session2/transformers.html#notation",
     "title": "Formal Algorithms for Transformers",
     "section": "Notation",
-    "text": "Notation\n\nVocabulary: \\(V\\), is a finite set identified with \\([N_V] \\equiv \\lbrace 1, \\dots, N_V\\rbrace\\).\nLetters, words, most commonly subwords.\nSequence: \\(\\boldsymbol{x} \\equiv x[1:l] = x[1] \\dots x[N] \\in V^*\\)\n\\(\\ell_{\\text{max}}\\): maximum length of a sequence."
+    "text": "Notation\n\nVocabulary: \\(V\\), is a finite set identified with \\([N_V] \\equiv \\lbrace 1, \\dots, N_V\\rbrace\\).\nLetters, words, most commonly subwords (tokens).\nSequence: \\(\\boldsymbol{x} \\equiv x[1:l] = x[1] \\dots x[N] \\in V^*\\)\n\\(\\ell_{\\text{max}}\\): maximum length of a sequence."
   },
   {
     "objectID": "slides/session2/transformers.html#tokenization",
     "href": "slides/session2/transformers.html#tokenization",
     "title": "Formal Algorithms for Transformers",
     "section": "Tokenization",
-    "text": "Tokenization\n\nA transformer will learn a vector represenration of each token in each sequence.\nFirst thing is to break each sequence of vocabulary elements (tokens).\nSeveral tokenization strategies. Take this text as an example\n\n\nLeón is the best city in Spain."
+    "text": "Tokenization\n\nGoal: learn a vector representation of the sequence, useful for downstream tasks.\nA transformer will learn a vector representation of each token in each sequence.\nFirst thing is to break each sequence into tokens (vocabulary elements).\nSeveral tokenization strategies. Take this text as an example\n\n\nLeón is the best city in Spain."
   },
   {
     "objectID": "slides/session2/transformers.html#transformers-tasks",
@@ -214,7 +214,7 @@
     "href": "slides/session2/transformers.html#transformer-block",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block",
-    "text": "Transformer Block\nTransformers generate a new representation of the input sequence by applying a series of transformer blocks.\n\\[\nX^{(m)} = \\text{TransformerBlock}(X^{(m-1)})    \n\\]"
+    "text": "Transformer Block\n\nEach sequence corresponds to a matrix \\(X^{(0)} \\in \\mathbb{R}^{D \\times N}\\).\nTransformers generate a new representation of the input sequence by applying a series of transformer blocks.\n\n\\[\nX^{(m)} = \\text{TransformerBlock}(X^{(m-1)})    \n\\]"
   },
   {
     "objectID": "slides/session2/transformers.html#comments",
@@ -228,7 +228,7 @@
     "href": "slides/session2/transformers.html#data",
     "title": "Formal Algorithms for Transformers",
     "section": "Data",
-    "text": "Data\n\nData is assumed to be independent and identically distributed (i.i.d.).\ne.g. a collection of independent articles\nIf length of sequence is greater than \\(\\ell_{\\text{max}}\\), then sequence is broken into smaller chunks.\nDetails about the data depend on the task."
+    "text": "Data\n\nData is assumed to be set of independent and identically distributed (i.i.d.) sequences.\ne.g. a collection of independent articles\nIf length of sequence is greater than \\(\\ell_{\\text{max}}\\), then sequence is broken into smaller chunks.\nDetails about the data depend on the task."
   },
   {
     "objectID": "slides/session2/transformers.html#transformers-tasks---sequence-to-sequence-prediction",
@@ -249,7 +249,7 @@
     "href": "slides/session2/transformers.html#tokenization---character-level",
     "title": "Formal Algorithms for Transformers",
     "section": "Tokenization - Character-level",
-    "text": "Tokenization - Character-level\n\nTake \\(V\\) to be the set of characters (in a given alphabet).\nIn the previous example, the sequence would be:\n\n\n[L, e, ó, n, , …]\n\n\nLong sequences."
+    "text": "Tokenization - Character-level\n\nTake \\(V\\) to be the set of characters (in a given alphabet).\nIn the previous example, the sequence would be:\n\n\n[L, e, ó, n, , …]\n\n\nManageable vocabulary but requires longer sequences."
   },
   {
     "objectID": "slides/session2/transformers.html#tokenization---subword-level",
@@ -284,7 +284,7 @@
     "href": "slides/session2/transformers.html#transformer-block-1",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block",
-    "text": "Transformer Block\nBlock consists of two stages:\n\nSelf-Attention across the sequence: refines the representation of each token by considering the other tokens in the sequence: how much a word in position \\(i\\) depends on words in positions \\(j\\). [Vertically]\nMulti-layer perceptron across features: refines the features representation of each token. [Horizontally]"
+    "text": "Transformer Block\nBlock consists of two stages:\n1. Self-Attention across the sequence: refines the representation of each token by considering the other tokens in the sequence: how much a word in position \\(i\\) depends on words in positions \\(j\\). [Vertically]\n2. Multi-layer perceptron across features: refines the features representation of each token independently (without considering the other tokens in the sequence). [Horizontally]"
   },
   {
     "objectID": "slides/session2/transformers.html#final-input-to-the-transformer-block-1",
@@ -298,7 +298,7 @@
     "href": "slides/session2/transformers.html#self-attention-across-the-sequence",
     "title": "Formal Algorithms for Transformers",
     "section": "1. Self-Attention across the sequence",
-    "text": "1. Self-Attention across the sequence\nOutput of the self-attention mechanism is a matrix of size \\(D \\times N\\), call it \\(Y^{(m)}\\). Output is produced aggregating information across the sequence independently for each feature using attention."
+    "text": "1. Self-Attention across the sequence\nOutput of the self-attention mechanism is a matrix of size \\(D \\times N\\), call it \\(Y^{(m)}\\). Output is produced aggregating information across the sequence for each feature using attention."
   },
   {
     "objectID": "slides/session2/transformers.html#transformer-block-2",
@@ -368,7 +368,7 @@
     "href": "slides/session2/transformers.html#self-attention-across-the-sequence-1",
     "title": "Formal Algorithms for Transformers",
     "section": "1. Self-Attention across the sequence",
-    "text": "1. Self-Attention across the sequence\nAttention\nSpecifically for the \\(n\\)-th feature, the output, denoted by \\(\\boldsymbol{y}^{(m)}_n\\), is computed as a weighted average of the input features:\n\\[\n\\boldsymbol{y}^{(m)}_n = \\sum_{n'=1}^{N} \\boldsymbol{x}^{(m-1)}_{n'} \\cdot A^{(m)}_{n'n}\n\\]\n\\(A^{(m)}\\) is the attention matrix of size \\(N \\times N\\) whose elements are normalized over the columns so \\(\\sum_{n'=1}^{N} A^{(m)}_{n'n} = 1\\)."
+    "text": "1. Self-Attention across the sequence\nAttention\nSpecifically for the \\(n\\)-th location in the sequence, the output, denoted by \\(\\boldsymbol{y}^{(m)}_n\\), is computed as a weighted average of the input features:\n\\[\n\\boldsymbol{y}^{(m)}_n = \\sum_{n'=1}^{N} \\boldsymbol{x}^{(m-1)}_{n'} \\cdot A^{(m)}_{n'n}\n\\]\n\\(A^{(m)}\\) is the attention matrix of size \\(N \\times N\\) whose elements are normalized over the columns so \\(\\sum_{n'=1}^{N} A^{(m)}_{n'n} = 1\\)."
   },
   {
     "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-2",
@@ -410,14 +410,14 @@
     "href": "slides/session2/transformers.html#self-attention-across-the-sequence-7",
     "title": "Formal Algorithms for Transformers",
     "section": "1. Self-Attention across the sequence",
-    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nThere is just one attention matrix \\(A^{(m)}\\). It would be useful for a pair of points to be similar across some dimensions and dissimilar across others.\nSolution: compute multiple attention matrices.\n\n\\[\nY^{(m)} = \\sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}  \n\\]\nwhere\n\\[\nA_h^{(m)} = \\text{softmax} \\left( (\\boldsymbol{q}_{h,n}^{(m)}) \\cdot (\\boldsymbol{k}_{h,n'}^{(m)}) \\right)\n\\]"
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nThere is just one attention matrix \\(A^{(m)}\\). It would be useful for a pair of points to be similar across some dimensions and dissimilar across others."
   },
   {
     "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-8",
     "href": "slides/session2/transformers.html#self-attention-across-the-sequence-8",
     "title": "Formal Algorithms for Transformers",
     "section": "1. Self-Attention across the sequence",
-    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nThe dot product \\(V_h^{(m)} X^{(m-1)}\\) is called the value vector."
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nSolution: compute multiple attention matrices.\n\n\\[\nY^{(m)} = \\sum_{h=1}^{H} V_h^{(m)} X^{(m-1)} A_h^{(m)}  \n\\]\nwhere\n\\[\nA_h^{(m)} = \\text{softmax} \\left( (\\boldsymbol{q}_{h,n}^{(m)}) \\cdot (\\boldsymbol{k}_{h,n'}^{(m)}) \\right)\n\\]"
   },
   {
     "objectID": "slides/session2/transformers.html#multi-layer-perceptron-across-features",
@@ -438,21 +438,21 @@
     "href": "slides/session2/transformers.html#transformer-block-all-together-1",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block: all together",
-    "text": "Transformer Block: all together\nResidual Connection\n\nStabilize learning.\nInstead of directly specifying a function \\(x^{(m)} = f_\\theta(x^{(m-1)})\\), the idea is to parameterize it as the identity function plus a residual term \\(x^{(m)} = x^{(m-1)} + \\text{res}_\\theta(x^{(m-1)})\\).\nModelling differences of representations rather than the representations themselves.\nWorks well when function being learned is close to the identity.\nUsed after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation."
+    "text": "Transformer Block: all together\nResidual Connection\n\nInstead of directly specifying a function \\(x^{(m)} = f_\\theta(x^{(m-1)})\\), the idea is to parameterize it as the identity function plus a residual term \\(x^{(m)} = x^{(m-1)} + \\text{res}_\\theta(x^{(m-1)})\\).\nModelling differences of representations rather than the representations themselves.\nWorks well when function being learned is close to the identity.\nStabilize learning."
   },
   {
     "objectID": "slides/session2/transformers.html#transformer-block-all-together-2",
     "href": "slides/session2/transformers.html#transformer-block-all-together-2",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block: all together",
-    "text": "Transformer Block: all together\nLayer Normalization\n\nAlso stabilizes learning (helps with vanishing/exploding gradients).\nMany choices, e.g. LayerNorm normalizes each token independently.\n\n\\[\nLayerNorm(X)_{d,n} = \\frac{1}{\\sqrt{\\text{var}(\\boldsymbol{x}_{n})}} (x_{d,n} - \\text{mean}(\\boldsymbol{x}_{n})) \\gamma_d + \\beta_d\n\\]\n\nThis prevents feature representations from blowing up in magnitude."
+    "text": "Transformer Block: all together\nResidual Connection\n\nUsed after both the self-attention and the MLP with the idea that each applies a mild non-linear transformation."
   },
   {
     "objectID": "slides/session2/transformers.html#transformer-block-all-together-3",
     "href": "slides/session2/transformers.html#transformer-block-all-together-3",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block: all together",
-    "text": "Transformer Block: all together"
+    "text": "Transformer Block: all together\nLayer Normalization\n\nAlso stabilizes learning (helps with vanishing/exploding gradients).\nMany choices, e.g. LayerNorm normalizes thre feature representation of each token independently.\n\n\\[\nLayerNorm(X)_{d,n} = \\frac{1}{\\sqrt{\\text{var}(\\boldsymbol{x}_{n})}} (x_{d,n} - \\text{mean}(\\boldsymbol{x}_{n})) \\gamma_d + \\beta_d\n\\]\n\nThis prevents feature representations from blowing up in magnitude."
   },
   {
     "objectID": "slides/session2/transformers.html#loss-function-and-training",
@@ -529,14 +529,14 @@
     "href": "slides/session2/transformers.html#self-attention-across-the-sequence-9",
     "title": "Formal Algorithms for Transformers",
     "section": "1. Self-Attention across the sequence",
-    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n[Code Pointer 3: modules.py]"
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\n\nThe dot product \\(V_h^{(m)} X^{(m-1)}\\) is called the value vector."
   },
   {
     "objectID": "slides/session2/transformers.html#transformer-block-all-together-4",
     "href": "slides/session2/transformers.html#transformer-block-all-together-4",
     "title": "Formal Algorithms for Transformers",
     "section": "Transformer Block: all together",
-    "text": "Transformer Block: all together\n[Code Pointer 4: modules.py]"
+    "text": "Transformer Block: all together"
   },
   {
     "objectID": "session2.html",
@@ -600,5 +600,40 @@
     "title": "Formal Algorithms for Transformers",
     "section": "Code",
     "text": "Code\nCode available here"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#what-is-a-transformer",
+    "href": "slides/session2/transformers.html#what-is-a-transformer",
+    "title": "Formal Algorithms for Transformers",
+    "section": "What is a Transformer?",
+    "text": "What is a Transformer?\n\nIt is a parametric function approximator, \\(f_{\\theta}\\), specifically designed to work with sequences represented as matrices.\n\\(\\theta\\) are the parameters of the function, that are learned from (lots) training data.\ne.g GPT-3 has 175 billion parameters."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#key-methodological-innovations",
+    "href": "slides/session2/transformers.html#key-methodological-innovations",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Key Methodological Innovations",
+    "text": "Key Methodological Innovations\nthat have led to the Deep Learning revolution\n(besides data a democratization of computational resources)\nMost DL algorithms aim at learning a function \\(f_{\\theta}\\) that approximates a target function \\(f\\) from a set of input-output pairs \\(\\lbrace (x_i, y_i) \\rbrace_{i=1}^N\\). This problem is solved by minimizing a loss function \\(L\\) that measures the discrepancy between the predictions of the model and the true values."
+  },
+  {
+    "objectID": "slides/session2/transformers.html#key-methodological-innovations-1",
+    "href": "slides/session2/transformers.html#key-methodological-innovations-1",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Key Methodological Innovations",
+    "text": "Key Methodological Innovations\nthat have led to the Deep Learning revolution\n(besides data a democratization of computational resources)\n\nStochastic Gradient Descent (optimization)\nAutomatic Differentiation (optimization)\nArchitectures (architecture): MLP, CNN, RNN, Transformers (Attention)"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#self-attention-across-the-sequence-10",
+    "href": "slides/session2/transformers.html#self-attention-across-the-sequence-10",
+    "title": "Formal Algorithms for Transformers",
+    "section": "1. Self-Attention across the sequence",
+    "text": "1. Self-Attention across the sequence\nMulti-Head Self-Attention\nUsually \\(K=D/H\\) in order to keep the number of parameters independent of the number of heads.\n[Code Pointer 3: modules.py]"
+  },
+  {
+    "objectID": "slides/session2/transformers.html#transformer-block-all-together-5",
+    "href": "slides/session2/transformers.html#transformer-block-all-together-5",
+    "title": "Formal Algorithms for Transformers",
+    "section": "Transformer Block: all together",
+    "text": "Transformer Block: all together\n[Code Pointer 4: modules.py]"
   }
 ]
