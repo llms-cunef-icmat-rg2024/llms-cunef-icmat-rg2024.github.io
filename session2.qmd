@@ -34,7 +34,7 @@ Implement or explore a basic transformer model for a text classification task, f
 
 ## Session recording
 
-TBA
+You can watch the session [here](https://www.youtube.com/watch?v=JFN1ThKgd5o&t).
 
 ## Slides
 
@@ -42,4 +42,4 @@ Available [here](slides/session2/transformers.html).
 
 ## Code
 
-[Code available here](https://github.com/llms-cunef-icmat-rg2024/session2)
+[Code available here](https://github.com/llms-cunef-icmat-rg2024/session2).
