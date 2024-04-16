@@ -95,7 +95,7 @@
     "href": "slides/session2/transformers.html#overview",
     "title": "Formal Algorithms for Transformers",
     "section": "Overview",
-    "text": "Overview\n\nFeynmans’ quote: “What I cannot create, I do not understand.”\nIf he was alive: “What I cannot code, I do not understand.”\nGoal: understand inner workings of transformers (trying to code them).\nWill not talk about training (optimization and gradient computation), but about architecture.\n[Code Pointer *: example.py]\nCode available here"
+    "text": "Overview\n\nFeynman’s quote: “What I cannot create, I do not understand.”\nIf he was alive: “What I cannot code, I do not understand.”\nGoal: understand inner workings of transformers (trying to code them).\nWill not talk about training (optimization and gradient computation), but about architecture.\n[Code Pointer *: example.py]\nCode available here"
   },
   {
     "objectID": "slides/session2/transformers.html#notation",

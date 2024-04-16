@@ -33,7 +33,7 @@ resources:
 
 ## Overview
 
-* Feynmans' quote: "What I cannot create, I do not understand."
+* Feynman's quote: "What I cannot create, I do not understand."
 
 * If he was alive: "What I cannot code, I do not understand."
 
