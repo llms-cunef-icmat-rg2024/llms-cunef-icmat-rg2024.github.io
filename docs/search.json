@@ -613,7 +613,7 @@
     "href": "slides/session2/transformers.html#key-methodological-innovations",
     "title": "Formal Algorithms for Transformers",
     "section": "Key Methodological Innovations",
-    "text": "Key Methodological Innovations\nthat have led to the Deep Learning revolution\n(besides data a democratization of computational resources)\nMost DL algorithms aim at learning a function \\(f_{\\theta}\\) that approximates a target function \\(f\\) from a set of input-output pairs \\(\\lbrace (x_i, y_i) \\rbrace_{i=1}^N\\). This problem is solved by minimizing a loss function \\(L\\) that measures the discrepancy between the predictions of the model and the true values."
+    "text": "Key Methodological Innovations\nthat have led to the Deep Learning revolution\n(besides data avalability and democratization of computational resources)\n\nMost DL algorithms aim at learning a function \\(f_{\\theta}\\) that approximates a target function \\(f\\) from a set of input-output pairs \\(\\lbrace (x_i, y_i) \\rbrace_{i=1}^N\\). This problem is solved by minimizing a loss function \\(L\\) that measures the discrepancy between the predictions of the model and the true values."
   },
   {
     "objectID": "slides/session2/transformers.html#key-methodological-innovations-1",

@@ -16,9 +16,9 @@ resources:
 
 ## Key Methodological Innovations
 ### that have led to the Deep Learning revolution
-**(besides data a democratization of computational resources)**
+**(besides data avalability and democratization of computational resources)**
 
-Most DL algorithms aim at learning a function $f_{\theta}$ that approximates a target function $f$ from a set of input-output pairs $\lbrace (x_i, y_i) \rbrace_{i=1}^N$. This problem is solved by minimizing a loss function $L$ that measures the discrepancy between the predictions of the model and the true values.
+> Most DL algorithms aim at learning a function $f_{\theta}$ that approximates a target function $f$ from a set of input-output pairs $\lbrace (x_i, y_i) \rbrace_{i=1}^N$. This problem is solved by minimizing a loss function $L$ that measures the discrepancy between the predictions of the model and the true values.
 
 ## Key Methodological Innovations
 ### that have led to the Deep Learning revolution
