@@ -1,0 +1,34 @@
+---
+title: "Generative Pre-Training (GPT)"
+---
+
+## Purpose
+
+Get acquainted with the formal foundations central to GPT and delineate its instrumental role in the evolution of LLMs.
+
+## Reading suggestions
+
+* ["Improving Language Understanding by Generative Pre-Training" by Radford et al.](https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf)
+
+* ["Language Models are Few-Shot Learners" by Brown et al.](https://arxiv.org/abs/2005.14165)
+
+## Date
+
+April 23rd at 11.30. @ICMAT
+
+## Facilitator
+
+Carlos García Meixide (ICMAT-CSIC)
+
+## Discussion Topics
+
+ Quick historical timeline of language AI, theoretical basis of GPT, practical Python demonstrations, the mathematics of in-context learning, future directions. 
+
+## Session recording
+
+TBA
+
+## Slides
+
+TBA
+
