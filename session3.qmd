@@ -26,10 +26,9 @@ Carlos García Meixide (ICMAT-CSIC)
 
 ## Session recording
 
-TBA
-
+You can watch the session [here](https://www.youtube.com/watch?v=h10lyb_nmbk).
 
 ## Slides
 
-TBA
+Available [here](slides/session3/gpt.pdf).
 
