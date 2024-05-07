@@ -8,9 +8,9 @@ Get acquainted with Reinforcement Learning From Human Feedback (RLHF) and relate
 
 ## Reading suggestions
 
- 1. "Fine-Tuning Language Models from Human Preferences" by D. Ziegler et al. (https://arxiv.org/abs/1909.08593), to understand the RLHF approach in fine-tuning language models.
- 2. "RL with KL penalties is better seen as Bayesian inference" by Korbak et al (https://arxiv.org/abs/2205.11275), for a nice Bayesian interpretation of RLHF
- 3. "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" by Rafailov et al (https://arxiv.org/abs/2305.18290), for an alternative optimization procedure to RLHF using the Bradley-Terry preference model.
+ 1. "Fine-Tuning Language Models from Human Preferences" by D. Ziegler et al. [https://arxiv.org/abs/1909.08593](https://arxiv.org/abs/1909.08593), to understand the RLHF approach in fine-tuning language models.
+ 2. "RL with KL penalties is better seen as Bayesian inference" by Korbak et al [https://arxiv.org/abs/2205.11275](https://arxiv.org/abs/2205.11275), for a nice Bayesian interpretation of RLHF
+ 3. "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" by Rafailov et al [https://arxiv.org/abs/2305.18290](https://arxiv.org/abs/2305.18290), for an alternative optimization procedure to RLHF using the Bradley-Terry preference model.
 
 ## Date
 

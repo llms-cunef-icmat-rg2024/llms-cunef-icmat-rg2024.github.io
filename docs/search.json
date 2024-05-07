@@ -431,7 +431,7 @@
     "href": "session4.html#reading-suggestions",
     "title": "Reinforcement Learning from Human Feedback (RLHF)",
     "section": "Reading suggestions",
-    "text": "Reading suggestions\n\n“Fine-Tuning Language Models from Human Preferences” by D. Ziegler et al. (https://arxiv.org/abs/1909.08593), to understand the RLHF approach in fine-tuning language models.\n“RL with KL penalties is better seen as Bayesian inference” by Korbak et al (https://arxiv.org/abs/2205.11275), for a nice Bayesian interpretation of RLHF\n“Direct Preference Optimization: Your Language Model is Secretly a Reward Model” by Rafailov et al (https://arxiv.org/abs/2305.18290), for an alternative optimization procedure to RLHF using the Bradley-Terry preference model."
+    "text": "Reading suggestions\n\n“Fine-Tuning Language Models from Human Preferences” by D. Ziegler et al. https://arxiv.org/abs/1909.08593, to understand the RLHF approach in fine-tuning language models.\n“RL with KL penalties is better seen as Bayesian inference” by Korbak et al https://arxiv.org/abs/2205.11275, for a nice Bayesian interpretation of RLHF\n“Direct Preference Optimization: Your Language Model is Secretly a Reward Model” by Rafailov et al https://arxiv.org/abs/2305.18290, for an alternative optimization procedure to RLHF using the Bradley-Terry preference model."
   },
   {
     "objectID": "session4.html#date",
