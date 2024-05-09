@@ -19,6 +19,8 @@ website:
         text: "Session 3"
       - file: session4.qmd
         text: "Session 4"
+      - file: session5.qmd
+        text: "Session 5"
 
     #right:
     #  - icon: bar-chart-fill

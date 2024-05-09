@@ -452,7 +452,7 @@
     "href": "session4.html#session-recording",
     "title": "Reinforcement Learning from Human Feedback (RLHF)",
     "section": "Session recording",
-    "text": "Session recording\nThe recorded session will be posted here soon."
+    "text": "Session recording\nYou can watch the session here."
   },
   {
     "objectID": "session4.html#slides",
@@ -579,5 +579,61 @@
     "title": "Intro to Deep Learning focusing on LSTMs and GRUs",
     "section": "Slides",
     "text": "Slides\nAvailable here."
+  },
+  {
+    "objectID": "session5.html",
+    "href": "session5.html",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "",
+    "text": "Promote discussions about potential research topics around two issues: a) Bayes for LLMs and LLMs for Bayes, b) Security of LLMs"
+  },
+  {
+    "objectID": "session5.html#purpose",
+    "href": "session5.html#purpose",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "",
+    "text": "Promote discussions about potential research topics around two issues: a) Bayes for LLMs and LLMs for Bayes, b) Security of LLMs"
+  },
+  {
+    "objectID": "session5.html#reading-suggestions",
+    "href": "session5.html#reading-suggestions",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "Reading suggestions",
+    "text": "Reading suggestions\n\nBayes and Deep Learning\n\nIntroduction in “Current Advances in Neural Networks”\n\n\n\nVery Large Scale Bayesian Inference\n\nMachine Learning and the Future of Bayesian Computation\nBayesian Deep Learning in the Age of Large Scale AI\nPrior knowledge elicitation: The past, present, and future\n\n\n\nBayes and LLMs and Transformers\n\nPathologies in priors and inference for transformers\nThe Matrix: A Bayesian learning model for LLMs\nBayesian reward models for LLM alignment\n\n\n\nLLMs for Bayes\n\n“Can Transformers do Bayesian Inference”\nLLMs to enhance Bayesian optimization\n\n\n\nSecurity in LLMs\n\nOn the Dangers of Stochastic Parrots…\nPromptBench: Towards Evaluating the Robustness of Large Language Models on Adversarial Prompts"
+  },
+  {
+    "objectID": "session5.html#date",
+    "href": "session5.html#date",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "Date",
+    "text": "Date\nMay 8th at 10.45. @ICMAT"
+  },
+  {
+    "objectID": "session5.html#facilitator",
+    "href": "session5.html#facilitator",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "Facilitator",
+    "text": "Facilitator\nDavid Ríos Insua (ICMAT-CSIC)"
+  },
+  {
+    "objectID": "session5.html#discussion-topics",
+    "href": "session5.html#discussion-topics",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "Discussion Topics",
+    "text": "Discussion Topics\nThe potential of transformers in Bayesian inference, adversarial attacks to LLMs, Causality and LLMs, etc."
+  },
+  {
+    "objectID": "session5.html#session-recording",
+    "href": "session5.html#session-recording",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "Session recording",
+    "text": "Session recording\nYou can watch the session here."
+  },
+  {
+    "objectID": "session5.html#slides",
+    "href": "session5.html#slides",
+    "title": "Bayes and LLMs. The security of LLMs",
+    "section": "Slides",
+    "text": "Slides\nTBA"
   }
 ]

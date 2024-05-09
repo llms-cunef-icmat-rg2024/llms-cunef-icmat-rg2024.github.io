@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intro to LLMs - Reinforcement Learning from Human Feedback (RLHF)</title>
+<title>Intro to LLMs - Bayes and LLMs. The security of LLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,11 +101,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Session 3</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./session4.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./session4.html" rel="" target="">
  <span class="menu-text">Session 4</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./session5.html" rel="" target="">
+    <a class="nav-link active" href="./session5.html" rel="" target="" aria-current="page">
  <span class="menu-text">Session 5</span></a>
   </li>  
 </ul>
@@ -125,9 +125,17 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#reading-suggestions" id="toc-reading-suggestions" class="nav-link" data-scroll-target="#reading-suggestions">Reading suggestions</a></li>
+  <li><a href="#reading-suggestions" id="toc-reading-suggestions" class="nav-link" data-scroll-target="#reading-suggestions">Reading suggestions</a>
+  <ul class="collapse">
+  <li><a href="#bayes-and-deep-learning" id="toc-bayes-and-deep-learning" class="nav-link" data-scroll-target="#bayes-and-deep-learning">Bayes and Deep Learning</a></li>
+  <li><a href="#very-large-scale-bayesian-inference" id="toc-very-large-scale-bayesian-inference" class="nav-link" data-scroll-target="#very-large-scale-bayesian-inference">Very Large Scale Bayesian Inference</a></li>
+  <li><a href="#bayes-and-llms-and-transformers" id="toc-bayes-and-llms-and-transformers" class="nav-link" data-scroll-target="#bayes-and-llms-and-transformers">Bayes and LLMs and Transformers</a></li>
+  <li><a href="#llms-for-bayes" id="toc-llms-for-bayes" class="nav-link" data-scroll-target="#llms-for-bayes">LLMs for Bayes</a></li>
+  <li><a href="#security-in-llms" id="toc-security-in-llms" class="nav-link" data-scroll-target="#security-in-llms">Security in LLMs</a></li>
+  </ul></li>
   <li><a href="#date" id="toc-date" class="nav-link" data-scroll-target="#date">Date</a></li>
   <li><a href="#facilitator" id="toc-facilitator" class="nav-link" data-scroll-target="#facilitator">Facilitator</a></li>
+  <li><a href="#discussion-topics" id="toc-discussion-topics" class="nav-link" data-scroll-target="#discussion-topics">Discussion Topics</a></li>
   <li><a href="#session-recording" id="toc-session-recording" class="nav-link" data-scroll-target="#session-recording">Session recording</a></li>
   <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   </ul>
@@ -138,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reinforcement Learning from Human Feedback (RLHF)</h1>
+<h1 class="title">Bayes and LLMs. The security of LLMs</h1>
 </div>
 
 
@@ -155,31 +163,66 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="purpose" class="level2">
 <h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>Get acquainted with Reinforcement Learning From Human Feedback (RLHF) and related methods to tune foundation models to specific purposes and/or custom user preferences, such as safety or style.</p>
+<p>Promote discussions about potential research topics around two issues: a) Bayes for LLMs and LLMs for Bayes, b) Security of LLMs</p>
 </section>
 <section id="reading-suggestions" class="level2">
 <h2 class="anchored" data-anchor-id="reading-suggestions">Reading suggestions</h2>
-<ol type="1">
-<li>“Fine-Tuning Language Models from Human Preferences” by D. Ziegler et al.&nbsp;<a href="https://arxiv.org/abs/1909.08593">https://arxiv.org/abs/1909.08593</a>, to understand the RLHF approach in fine-tuning language models.</li>
-<li>“RL with KL penalties is better seen as Bayesian inference” by Korbak et al <a href="https://arxiv.org/abs/2205.11275">https://arxiv.org/abs/2205.11275</a>, for a nice Bayesian interpretation of RLHF</li>
-<li>“Direct Preference Optimization: Your Language Model is Secretly a Reward Model” by Rafailov et al <a href="https://arxiv.org/abs/2305.18290">https://arxiv.org/abs/2305.18290</a>, for an alternative optimization procedure to RLHF using the Bradley-Terry preference model.</li>
-</ol>
+<section id="bayes-and-deep-learning" class="level3">
+<h3 class="anchored" data-anchor-id="bayes-and-deep-learning">Bayes and Deep Learning</h3>
+<ul>
+<li>Introduction in <a href="https://www.annualreviews.org/doi/pdf/10.1146/annurev-statistics-040220-112019">“Current Advances in Neural Networks”</a></li>
+</ul>
+</section>
+<section id="very-large-scale-bayesian-inference" class="level3">
+<h3 class="anchored" data-anchor-id="very-large-scale-bayesian-inference">Very Large Scale Bayesian Inference</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2304.11251">Machine Learning and the Future of Bayesian Computation</a></li>
+<li><a href="https://arxiv.org/abs/2402.00809">Bayesian Deep Learning in the Age of Large Scale AI</a></li>
+<li><a href="https://arxiv.org/abs/2112.01380">Prior knowledge elicitation: The past, present, and future</a></li>
+</ul>
+</section>
+<section id="bayes-and-llms-and-transformers" class="level3">
+<h3 class="anchored" data-anchor-id="bayes-and-llms-and-transformers">Bayes and LLMs and Transformers</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2110.04020">Pathologies in priors and inference for transformers</a></li>
+<li><a href="https://arxiv.org/abs/2402.03175">The Matrix: A Bayesian learning model for LLMs</a></li>
+<li><a href="https://arxiv.org/abs/2402.13210">Bayesian reward models for LLM alignment</a></li>
+</ul>
+</section>
+<section id="llms-for-bayes" class="level3">
+<h3 class="anchored" data-anchor-id="llms-for-bayes">LLMs for Bayes</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2112.10510">“Can Transformers do Bayesian Inference”</a></li>
+<li><a href="https://arxiv.org/abs/2402.03921">LLMs to enhance Bayesian optimization</a></li>
+</ul>
+</section>
+<section id="security-in-llms" class="level3">
+<h3 class="anchored" data-anchor-id="security-in-llms">Security in LLMs</h3>
+<ul>
+<li><a href="https://dl.acm.org/doi/10.1145/3442188.3445922">On the Dangers of Stochastic Parrots…</a></li>
+<li><a href="https://arxiv.org/abs/2306.04528">PromptBench: Towards Evaluating the Robustness of Large Language Models on Adversarial Prompts</a></li>
+</ul>
+</section>
 </section>
 <section id="date" class="level2">
 <h2 class="anchored" data-anchor-id="date">Date</h2>
-<p>May 7th at 11.30. <span class="citation" data-cites="CUNEF">@CUNEF</span></p>
+<p>May 8th at 10.45. <span class="citation" data-cites="ICMAT">@ICMAT</span></p>
 </section>
 <section id="facilitator" class="level2">
 <h2 class="anchored" data-anchor-id="facilitator">Facilitator</h2>
-<p>Víctor Gallego Alcalá (Komorebi AI)</p>
+<p>David Ríos Insua (ICMAT-CSIC)</p>
+</section>
+<section id="discussion-topics" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-topics">Discussion Topics</h2>
+<p>The potential of transformers in Bayesian inference, adversarial attacks to LLMs, Causality and LLMs, etc.</p>
 </section>
 <section id="session-recording" class="level2">
 <h2 class="anchored" data-anchor-id="session-recording">Session recording</h2>
-<p>You can watch the session <a href="https://youtube.com/live/Al7AC86LTAY">here</a>.</p>
+<p>You can watch the session <a href="https://youtube.com/live/5ocPeveepNA">here</a>.</p>
 </section>
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
-<p>Available <a href="slides/session4/rlhf-slides.pdf">here</a>.</p>
+<p>TBA</p>
 
 
 </section>

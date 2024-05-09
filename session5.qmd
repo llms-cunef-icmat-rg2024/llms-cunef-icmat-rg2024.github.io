@@ -1,0 +1,52 @@
+---
+title: "Bayes and LLMs. The security of LLMs"
+---
+
+## Purpose
+
+Promote discussions about potential research topics around two issues: a) Bayes for LLMs and LLMs for Bayes, b) Security of LLMs
+
+## Reading suggestions
+
+### Bayes and Deep Learning
+
+- Introduction in ["Current Advances in Neural Networks"](https://www.annualreviews.org/doi/pdf/10.1146/annurev-statistics-040220-112019)
+
+### Very Large Scale Bayesian Inference
+- [Machine Learning and the Future of Bayesian Computation](https://arxiv.org/abs/2304.11251)
+- [Bayesian Deep Learning in the Age of Large Scale AI](https://arxiv.org/abs/2402.00809)
+- [Prior knowledge elicitation: The past, present, and future](https://arxiv.org/abs/2112.01380)
+
+### Bayes and LLMs and Transformers
+- [Pathologies in priors and inference for transformers](https://arxiv.org/abs/2110.04020)
+- [The Matrix: A Bayesian learning model for LLMs](https://arxiv.org/abs/2402.03175)
+- [Bayesian reward models for LLM alignment](https://arxiv.org/abs/2402.13210)
+
+### LLMs for Bayes
+- ["Can Transformers do Bayesian Inference"](https://arxiv.org/abs/2112.10510)
+- [LLMs to enhance Bayesian optimization](https://arxiv.org/abs/2402.03921)
+
+### Security in LLMs
+- [On the Dangers of Stochastic Parrots…](https://dl.acm.org/doi/10.1145/3442188.3445922)
+- [PromptBench: Towards Evaluating the Robustness of Large Language Models on Adversarial Prompts](https://arxiv.org/abs/2306.04528)
+
+## Date
+
+May 8th at 10.45. @ICMAT
+
+## Facilitator
+
+David Ríos Insua (ICMAT-CSIC)
+
+## Discussion Topics
+
+The potential of transformers in Bayesian inference, adversarial attacks to LLMs, Causality and LLMs, etc.
+
+## Session recording
+
+You can watch the session [here](https://youtube.com/live/5ocPeveepNA).
+
+## Slides
+
+TBA
+
