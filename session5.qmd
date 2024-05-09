@@ -48,5 +48,4 @@ You can watch the session [here](https://youtube.com/live/5ocPeveepNA).
 
 ## Slides
 
-TBA
-
+Available [here](slides/session5/introllms5.pdf).
